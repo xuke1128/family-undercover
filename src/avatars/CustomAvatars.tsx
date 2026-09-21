@@ -30,22 +30,43 @@ export function NuandadAvatar(): React.JSX.Element {
   );
 }
 
-/** 甜妈：齐肩发 + 温柔笑眼 + 针织衫的妈妈萌系形象 */
+/**
+ * 甜妈：30 岁左右年轻甜美女性萌系卡通（2026-09-21 修订年轻化）——
+ * 双马尾长卷发（栗棕 #A0603A、发梢卷高光）+ 粉色蝴蝶结发圈、
+ * 放大明亮双眼（双高光）、腮红、甜美笑容、粉上衣白领结。
+ */
 export function TianmaAvatar(): React.JSX.Element {
   return (
     <g>
-      <rect x="6.5" y="11" width="27" height="24" rx="10" fill="#8A5A3B" />
+      {/* 双马尾（长卷发，发梢外卷） */}
+      <path d="M10,14.5 Q3.5,18 5,26 Q5.8,31 9.5,35.5 Q7.8,29.5 8.6,24 Q9.2,19 11,15.5 Z" fill="#A0603A" />
+      <path d="M30,14.5 Q36.5,18 35,26 Q34.2,31 30.5,35.5 Q32.2,29.5 31.4,24 Q30.8,19 29,15.5 Z" fill="#A0603A" />
+      <path d="M6.6,28.4 q0.6,2.6 2.6,4.2" fill="none" stroke="#C58A5C" strokeWidth="1.1" />
+      <path d="M33.4,28.4 q-0.6,2.6 -2.6,4.2" fill="none" stroke="#C58A5C" strokeWidth="1.1" />
+      {/* 发顶 + 刘海 + 鬓发 */}
+      <rect x="8.5" y="11" width="23" height="20" rx="9.5" fill="#A0603A" />
       <circle cx="20" cy="22.5" r="11" fill="#F9D8B4" />
-      <path d="M9,19.5 q11,-12 22,0 q-3.5,-6.5 -11,-6.5 q-7.5,0 -11,6.5 Z" fill="#8A5A3B" />
-      <circle cx="11" cy="15.5" r="1.8" fill="#FFC94D" />
-      <circle cx="11" cy="15.5" r="0.7" fill="#F0633F" />
-      <path d="M13.5,22.5 q1.6,1.8 3.2,0" fill="none" stroke="#46372E" strokeWidth="1.3" />
-      <path d="M23.3,22.5 q1.6,1.8 3.2,0" fill="none" stroke="#46372E" strokeWidth="1.3" />
-      <circle cx="12.8" cy="26" r="1.7" fill="#F7B8A0" />
-      <circle cx="27.2" cy="26" r="1.7" fill="#F7B8A0" />
-      <path d="M17,28.6 q3,2.2 6,0" fill="none" stroke="#C96A5A" strokeWidth="1.4" />
-      <rect x="9" y="33.5" width="22" height="6.5" rx="3" fill="#F09A7B" />
-      <path d="M16,33.8 l4,3.6 4,-3.6" fill="none" stroke="#E3815F" strokeWidth="1.3" />
+      <path d="M9,19.5 q11,-12.5 22,0 q-3.5,-7 -11,-7 q-7.5,0 -11,7 Z" fill="#A0603A" />
+      <path d="M9,17.5 Q7.6,23 9.6,28.2 Q10.8,24.8 10.5,20 Z" fill="#A0603A" />
+      <path d="M31,17.5 Q32.4,23 30.4,28.2 Q29.2,24.8 29.5,20 Z" fill="#A0603A" />
+      {/* 粉色蝴蝶结发圈 */}
+      <circle cx="10.4" cy="14.8" r="1.5" fill="#F48FB1" />
+      <circle cx="29.6" cy="14.8" r="1.5" fill="#F48FB1" />
+      {/* 放大明亮双眼（双高光）+ 腮红 + 甜美笑容 */}
+      <circle cx="15.2" cy="22.6" r="2.5" fill="#46372E" />
+      <circle cx="24.8" cy="22.6" r="2.5" fill="#46372E" />
+      <circle cx="14.4" cy="21.8" r="0.9" fill="#FFFFFF" />
+      <circle cx="24" cy="21.8" r="0.9" fill="#FFFFFF" />
+      <circle cx="15.9" cy="23.5" r="0.4" fill="#FFFFFF" />
+      <circle cx="25.5" cy="23.5" r="0.4" fill="#FFFFFF" />
+      <circle cx="12.4" cy="26.2" r="1.8" fill="#F7B8A0" />
+      <circle cx="27.6" cy="26.2" r="1.8" fill="#F7B8A0" />
+      <path d="M16.8,28 q3.2,2.8 6.4,0" fill="none" stroke="#C96A5A" strokeWidth="1.4" />
+      {/* 粉上衣 + 白领结 */}
+      <rect x="9" y="33.5" width="22" height="6.5" rx="3" fill="#F48FB1" />
+      <path d="M17,34.4 l3,1.5 -3,1.5 Z" fill="#FFFFFF" />
+      <path d="M23,34.4 l-3,1.5 3,1.5 Z" fill="#FFFFFF" />
+      <circle cx="20" cy="35.9" r="0.8" fill="#F0639F" />
     </g>
   );
 }
