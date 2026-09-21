@@ -13,17 +13,17 @@ export const COPY = {
     simple: '别把词说出来！',
     normal: '不能说出这个词',
   } satisfies ModeCopy,
-  describeRule: {
-    simple: '说一句话，别把词说出来！',
-    normal: '用一句话描述：不能说词、不能说字、说不出可以说「过」',
+  peekDoneHint: {
+    simple: '聊一聊，再来投票',
+    normal: '大家先聊一聊，随时开始投票',
   } satisfies ModeCopy,
   voteHint: {
     simple: '悄悄选一个人，觉得 TA 是卧底',
     normal: '候选是除你以外的存活玩家，必须投一人',
   } satisfies ModeCopy,
   tieExplain: {
-    simple: '他们再说一句，大家再投一次',
-    normal: '平票者各再描述一句，全员重新投票',
+    simple: '再投一次，可以换人',
+    normal: '全员直接重投一次，这次可以换票',
   } satisfies ModeCopy,
   tieStuck: {
     simple: '这轮没人出局，再来！',
@@ -34,12 +34,3 @@ export const COPY = {
     undercover: { simple: '卧底藏得真好！', normal: '卧底坚持到最后' },
   } satisfies Record<Camp, ModeCopy>,
 } as const;
-
-/** 简单模式描述句式提示卡（M4/US5/US9），孩子照读即可完成描述 */
-export const SENTENCE_HINTS: readonly string[] = [
-  '它是一种动物',
-  '它是甜的',
-  '我在家里见过它',
-  '它喜欢动来动去',
-  '它有很多颜色',
-];

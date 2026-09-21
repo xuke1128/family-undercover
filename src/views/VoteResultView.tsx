@@ -65,7 +65,7 @@ export function VoteResultView({ state, onProceed }: VoteResultViewProps) {
 
       <div className="footer-actions">
         <ActionButton variant="primary" onClick={onProceed}>
-          {tally.isTie ? '平票了，看看怎么办 ▶' : '揭晓出局者 ▶'}
+          {tally.isTie ? '重新投一次 ▶' : '揭晓出局者 ▶'}
         </ActionButton>
       </div>
     </>

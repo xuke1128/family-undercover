@@ -10,7 +10,7 @@ interface TieViewProps {
   onNextRound: () => void;
 }
 
-/** P9 平票处理（US7，PRD §3.3）：平票公告 / 仍平票宣布 */
+/** P9 平票处理（US6，PRD §3.3）：平票公告（全员直接重投一次，可换票）/ 仍平票宣布 */
 export function TieView({ state, onStartTiebreak, onNextRound }: TieViewProps) {
   if (state.phase.kind === 'tieAnnounce') {
     const tally = currentTally(state);
@@ -35,7 +35,7 @@ export function TieView({ state, onStartTiebreak, onNextRound }: TieViewProps) {
         </div>
         <div className="stage-center__sub">{COPY.tieExplain[state.mode]}</div>
         <ActionButton variant="primary" onClick={onStartTiebreak}>
-          开始加赛 🎤
+          重新投票 🗳️
         </ActionButton>
       </div>
     );

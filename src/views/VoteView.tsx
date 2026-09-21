@@ -13,7 +13,7 @@ interface VoteViewProps {
   onCastVote: (targetId: string) => void;
 }
 
-/** P6 传机投票（两态）：交接确认 → 秘密投票；候选不含自己与已出局者（US6） */
+/** P6 传机投票（两态）：交接确认 → 秘密投票；候选不含自己与已出局者（US5） */
 export function VoteView({ state, onConfirmVoter, onCastVote }: VoteViewProps) {
   if (state.phase.kind !== 'vote') return null;
   const { index, confirmed, tiebreak } = state.phase;
@@ -21,9 +21,23 @@ export function VoteView({ state, onConfirmVoter, onCastVote }: VoteViewProps) {
   const voter = alive[index];
   const outPlayers = state.roster.filter((p) => state.eliminatedIds.includes(p.id));
 
+  // 顶部横幅：平票重投轮（可换票）标注，或下一轮轮次提示（02-design P6/F5/F6）
+  const roundBanner = tiebreak
+    ? '🔄 重新投票 · 可以换票'
+    : state.roundNo > 1
+      ? `第 ${state.roundNo} 轮 · 还剩 ${alive.length} 人`
+      : null;
+
   if (!confirmed) {
     return (
       <>
+        {roundBanner && (
+          <div className="round-title">
+            <span className="round-title__banner" role="status">
+              {roundBanner}
+            </span>
+          </div>
+        )}
         <ProgressAvatars items={alive} currentIndex={index} label={`投票 ${index + 1}/${alive.length}`} />
         <HandoffCard player={voter} actionLabel="是我，投票 🤫" onAction={onConfirmVoter} />
       </>
@@ -32,10 +46,10 @@ export function VoteView({ state, onConfirmVoter, onCastVote }: VoteViewProps) {
 
   return (
     <>
-      {tiebreak && (
+      {roundBanner && (
         <div className="round-title">
           <span className="round-title__banner" role="status">
-            ⚖️ 重新投票
+            {roundBanner}
           </span>
         </div>
       )}

@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import {
   aliveIds,
   createInitialGame,
-  describeOrder,
   FALLBACK_ROUNDS,
   gameReducer,
   playerById,
@@ -36,24 +35,14 @@ const run = (state: GameState, ...actions: Action[]): GameState => {
   return s;
 };
 
-/** 全员看完词并进入描述轮 */
+/** 全员看完词（peekDone）后直接开始投票（无描述环节，2026-09-21 修订） */
 const beginGame = (names: string[], undercoverNames: string[], mode: GameMode = 'simple'): GameState => {
   let s = start(names, undercoverNames, mode);
   for (let i = 0; i < s.roster.length; i++) {
     s = run(s, { type: 'PEEK_CONFIRM' }, { type: 'PEEK_HIDE' });
   }
   expect(s.phase.kind).toBe('peekDone');
-  return run(s, { type: 'START_DESCRIBE' });
-};
-
-/** 当前描述轮全员完成，进入投票态 */
-const describeAll = (state: GameState): GameState => {
-  expect(state.phase.kind).toBe('describe');
-  let s = state;
-  const order = describeOrder(s);
-  for (let i = 0; i < order.length; i++) s = run(s, { type: 'DESCRIBE_NEXT' });
-  expect(s.phase.kind).toBe('vote');
-  return s;
+  return run(s, { type: 'START_VOTE' });
 };
 
 /** 全员投票：voterName -> targetName */
@@ -68,11 +57,11 @@ const voteAll = (state: GameState, targetOf: (voterName: string) => string): Gam
   return s;
 };
 
-/** 一轮「描述 → 全员投 target（target 本人投其他存活者）→ 揭晓 → 继续」 */
+/** 一轮「全员投 target（target 本人投其他存活者）→ 揭晓 → 继续」 */
 const roundEliminate = (state: GameState, target: string): GameState => {
   const fallback = state.roster.find((p) => p.name !== target && aliveIds(state).includes(p.id))!.name;
   return run(
-    voteAll(describeAll(state), (voter) => (voter === target ? fallback : target)),
+    voteAll(state, (voter) => (voter === target ? fallback : target)),
     { type: 'PROCEED_FROM_RESULT' },
     { type: 'FLIP_IDENTITY' },
     { type: 'CONTINUE_AFTER_REVEAL' },
@@ -80,7 +69,7 @@ const roundEliminate = (state: GameState, target: string): GameState => {
 };
 
 describe('machine 看词流程（US3/F2）', () => {
-  it('三态推进：交接 → 看词 → 隐藏 → 下一位 → 完成 → 描述', () => {
+  it('三态推进：交接 → 看词 → 隐藏 → 下一位 → 完成 → 直接投票（无描述环节）', () => {
     let s = start(['A', 'B', 'C'], ['A']);
     expect(s.phase).toEqual({ kind: 'peek', index: 0, revealed: false });
     s = run(s, { type: 'PEEK_CONFIRM' });
@@ -90,7 +79,7 @@ describe('machine 看词流程（US3/F2）', () => {
     s = run(s, { type: 'PEEK_HIDE' });
     expect(s.phase).toEqual({ kind: 'peek', index: 1, revealed: false });
     s = beginGame(['A', 'B', 'C'], ['A']);
-    expect(s.phase).toEqual({ kind: 'describe', index: 0, tiebreak: false });
+    expect(s.phase).toEqual({ kind: 'vote', index: 0, confirmed: false, tiebreak: false });
   });
 
   it('未确认身份时无法隐藏（未看词者无法跳过确认）', () => {
@@ -99,15 +88,15 @@ describe('machine 看词流程（US3/F2）', () => {
   });
 });
 
-describe('machine 投票与出局（US6/US7）', () => {
+describe('machine 投票与出局（US5/US6）', () => {
   it('投自己抛错（不可投自己，缺陷即 E1 兜底）', () => {
-    const s0 = describeAll(beginGame(['A', 'B', 'C'], ['A']));
+    const s0 = beginGame(['A', 'B', 'C'], ['A']);
     expect(() => run(s0, { type: 'VOTER_CONFIRM' }, { type: 'VOTE_CAST', targetId: s0.roster[0].id })).toThrow();
   });
 
   it('3 人简单局：卧底被投出局 → 平民胜', () => {
     let s = beginGame(['A', 'B', 'C'], ['A']);
-    s = voteAll(describeAll(s), (voter) => (voter === 'A' ? 'B' : 'A')); // A 得 2 票出局
+    s = voteAll(s, (voter) => (voter === 'A' ? 'B' : 'A')); // A 得 2 票出局
     expect(s.votes).toHaveLength(3);
     s = run(s, { type: 'PROCEED_FROM_RESULT' });
     expect(s.phase).toEqual({ kind: 'reveal', eliminatedId: s.roster[0].id, flipped: false });
@@ -126,19 +115,18 @@ describe('machine 投票与出局（US6/US7）', () => {
     expect(s.winner).toBe('undercover');
   });
 
-  it('未分胜负 → 下一轮全员描述，出局者不在轮次中（第 N+1 轮）', () => {
+  it('未分胜负 → 下一轮直接全员投票，出局者不在投票人之列（第 N+1 轮）', () => {
     const s = roundEliminate(beginGame(['A', 'B', 'C', 'D'], ['A']), 'B');
-    expect(s.phase.kind).toBe('describe');
+    expect(s.phase).toEqual({ kind: 'vote', index: 0, confirmed: false, tiebreak: false });
     expect(s.roundNo).toBe(2);
     expect(aliveIds(s)).toEqual(['p1', 'p3', 'p4']);
-    expect(describeOrder(s)).toEqual(['p1', 'p3', 'p4']);
   });
 
   it('8 人普通局：2 卧底逐个出局，最后一个卧底出局才平民胜', () => {
     let s = beginGame(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'], ['A', 'B'], 'normal');
     expect(Object.values(s.assignment.roles).filter((r) => r === 'undercover')).toHaveLength(2);
     s = roundEliminate(s, 'A'); // 卧底 A 出局，仍剩 1 卧底
-    expect(s.phase.kind).toBe('describe');
+    expect(s.phase.kind).toBe('vote');
     s = roundEliminate(s, 'B'); // 卧底 B 出局 → 卧底全出局
     expect(s.phase.kind).toBe('final');
     expect(s.winner).toBe('civilian');
@@ -146,28 +134,27 @@ describe('machine 投票与出局（US6/US7）', () => {
 
   it('已出局者不在投票人与候选之列', () => {
     let s = roundEliminate(beginGame(['A', 'B', 'C', 'D'], ['A']), 'B');
-    s = describeAll(s);
+    s = run(s, { type: 'VOTER_CONFIRM' });
     expect(aliveIds(s)).not.toContain('p2');
-    expect(() => run(s, { type: 'VOTER_CONFIRM' }, { type: 'VOTE_CAST', targetId: 'p2' })).toThrow();
+    expect(() => run(s, { type: 'VOTE_CAST', targetId: 'p2' })).toThrow();
   });
 });
 
-describe('machine 平票处理（PRD §3.3，US7）', () => {
+describe('machine 平票处理（PRD §3.3，US6）', () => {
   const begin4 = (): GameState => beginGame(['A', 'B', 'C', 'D'], ['A']);
   // A、C 投 B；B、D 投 C → B、C 各 2 票平票，且无人投自己
   const tieMap = (voter: string) => (voter === 'A' || voter === 'C' ? 'B' : 'C');
 
-  it('首投平票 → 仅平票者加赛描述 → 全员重投 → 唯一最高出局', () => {
-    let s = voteAll(describeAll(begin4()), tieMap); // B、C 各 2 票
+  it('首投平票 → 全员直接重投（无补充环节）→ 唯一最高出局', () => {
+    let s = voteAll(begin4(), tieMap); // B、C 各 2 票
     s = run(s, { type: 'PROCEED_FROM_RESULT' });
     expect(s.phase.kind).toBe('tieAnnounce');
     expect(s.tiebreakIds).toEqual(['p2', 'p3']);
     s = run(s, { type: 'START_TIEBREAK' });
-    expect(s.phase).toEqual({ kind: 'describe', index: 0, tiebreak: true });
-    expect(describeOrder(s)).toEqual(['p2', 'p3']);
-    s = describeAll(s);
-    expect(s.phase).toMatchObject({ kind: 'vote', tiebreak: true });
-    expect(s.votes).toEqual([]); // 旧票已清，重投重新计
+    // 重投轮：全员（存活 4 人）从第一位开始，旧票已清
+    expect(s.phase).toEqual({ kind: 'vote', index: 0, confirmed: false, tiebreak: true });
+    expect(s.votes).toEqual([]);
+    expect(s.tiebreakIds).toEqual([]);
     // 重投集中投 A（A 本人投 B）→ 唯一最高票
     s = voteAll(s, (voter) => (voter === 'A' ? 'B' : 'A'));
     s = run(s, { type: 'PROCEED_FROM_RESULT' });
@@ -176,24 +163,24 @@ describe('machine 平票处理（PRD §3.3，US7）', () => {
     expect(s.winner).toBe('civilian');
   });
 
-  it('重投仍平票 → 本轮无人出局、进入下一轮全员描述', () => {
-    let s = voteAll(describeAll(begin4()), tieMap);
+  it('重投仍平票 → 本轮无人出局、直接进入下一轮全员投票', () => {
+    let s = voteAll(begin4(), tieMap);
     s = run(s, { type: 'PROCEED_FROM_RESULT' }, { type: 'START_TIEBREAK' });
-    s = voteAll(describeAll(s), tieMap); // 重投仍平票
+    s = voteAll(s, tieMap); // 重投仍平票
     s = run(s, { type: 'PROCEED_FROM_RESULT' });
     expect(s.phase.kind).toBe('tieStuck');
     expect(s.noExitStreak).toBe(1);
     expect(s.votes).toEqual([]);
     s = run(s, { type: 'TIE_STUCK_NEXT' });
-    expect(s.phase).toEqual({ kind: 'describe', index: 0, tiebreak: false });
+    expect(s.phase).toEqual({ kind: 'vote', index: 0, confirmed: false, tiebreak: false });
     expect(s.roundNo).toBe(2);
-    expect(describeOrder(s)).toEqual(['p1', 'p2', 'p3', 'p4']);
+    expect(aliveIds(s)).toEqual(['p1', 'p2', 'p3', 'p4']);
   });
 
   it('同一轮内最多重投一次（重投后必然离开投票环节）', () => {
-    let s = voteAll(describeAll(begin4()), tieMap);
+    let s = voteAll(begin4(), tieMap);
     s = run(s, { type: 'PROCEED_FROM_RESULT' }, { type: 'START_TIEBREAK' });
-    s = run(voteAll(describeAll(s), tieMap), { type: 'PROCEED_FROM_RESULT' });
+    s = run(voteAll(s, tieMap), { type: 'PROCEED_FROM_RESULT' });
     expect(s.phase.kind).toBe('tieStuck');
     expect(run(s, { type: 'PROCEED_FROM_RESULT' }).phase.kind).toBe('tieStuck'); // 幂等，不会二次重投
   });
@@ -201,8 +188,8 @@ describe('machine 平票处理（PRD §3.3，US7）', () => {
   it('连续 3 轮无人出局 → 触发兜底弹层；「商量好了」可继续', () => {
     let s = begin4();
     for (let round = 1; round <= FALLBACK_ROUNDS; round++) {
-      s = run(voteAll(describeAll(s), tieMap), { type: 'PROCEED_FROM_RESULT' }, { type: 'START_TIEBREAK' });
-      s = run(voteAll(describeAll(s), tieMap), { type: 'PROCEED_FROM_RESULT' });
+      s = run(voteAll(s, tieMap), { type: 'PROCEED_FROM_RESULT' }, { type: 'START_TIEBREAK' });
+      s = run(voteAll(s, tieMap), { type: 'PROCEED_FROM_RESULT' });
       expect(s.phase.kind).toBe('tieStuck');
       expect(s.showFallback).toBe(round >= FALLBACK_ROUNDS);
       s = run(s, { type: 'FALLBACK_CONTINUE' });
@@ -213,21 +200,21 @@ describe('machine 平票处理（PRD §3.3，US7）', () => {
   });
 
   it('有人出局后无人出局计数归零', () => {
-    let s = run(voteAll(describeAll(begin4()), tieMap), { type: 'PROCEED_FROM_RESULT' }, { type: 'START_TIEBREAK' });
-    s = run(voteAll(describeAll(s), tieMap), { type: 'PROCEED_FROM_RESULT' }); // 无人出局 1 次
+    let s = run(voteAll(begin4(), tieMap), { type: 'PROCEED_FROM_RESULT' }, { type: 'START_TIEBREAK' });
+    s = run(voteAll(s, tieMap), { type: 'PROCEED_FROM_RESULT' }); // 无人出局 1 次
     expect(s.noExitStreak).toBe(1);
     // 出局一名平民（B）后游戏继续：计数应归零；此前已耗 2 轮（平票轮 + 无人出局轮），新一轮为第 3 轮
     s = roundEliminate(run(s, { type: 'TIE_STUCK_NEXT' }), 'B');
-    expect(s.phase.kind).toBe('describe');
+    expect(s.phase.kind).toBe('vote');
     expect(s.noExitStreak).toBe(0);
     expect(s.roundNo).toBe(3);
   });
 });
 
-describe('machine 连局与重开（US8，PRD §3.6）', () => {
+describe('machine 连局与重开（US7，PRD §3.6）', () => {
   it('REDEAL：名单/模式沿用、roundNo 归 1、gameSeq+1、状态全新', () => {
     const s0 = start(['A', 'B', 'C'], ['A']);
-    const mid = run(describeAll(beginGame(['A', 'B', 'C'], ['A'])), { type: 'DESCRIBE_NEXT' });
+    const mid = run(beginGame(['A', 'B', 'C'], ['A']), { type: 'VOTER_CONFIRM' });
     const next = run(mid, { type: 'REDEAL', assignment: assignment(mid.roster, ['B']) });
     expect(next.phase).toEqual({ kind: 'peek', index: 0, revealed: false });
     expect(next.roundNo).toBe(1);
@@ -241,7 +228,7 @@ describe('machine 连局与重开（US8，PRD §3.6）', () => {
 
   it('相位不符的动作安全忽略（无任何回退动作，DP3）', () => {
     const s = start(['A', 'B', 'C'], ['A']);
-    expect(run(s, { type: 'START_DESCRIBE' })).toBe(s);
+    expect(run(s, { type: 'START_VOTE' })).toBe(s);
     expect(run(s, { type: 'VOTE_CAST', targetId: 'p2' })).toBe(s);
     expect(run(s, { type: 'CONTINUE_AFTER_REVEAL' })).toBe(s);
   });

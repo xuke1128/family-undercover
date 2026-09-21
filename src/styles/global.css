@@ -536,7 +536,7 @@ input {
   opacity: 0.55;
 }
 
-/* ---------- 头像进度（看词/描述/投票轮次） ---------- */
+/* ---------- 头像进度（看词/投票轮次） ---------- */
 
 .progress-row {
   display: flex;
@@ -780,7 +780,7 @@ input {
   color: var(--ink-2);
 }
 
-/* ---------- 描述轮 ---------- */
+/* ---------- 轮次横幅与出局行 ---------- */
 
 .round-title {
   text-align: center;
@@ -797,61 +797,6 @@ input {
   padding: 8px 12px;
   font-size: 14px;
   margin-top: 8px;
-}
-
-.describe-hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  margin: 26px 0 10px;
-}
-
-.describe-hero__avatar {
-  animation: bounce-soft 1.6s ease-in-out infinite;
-}
-
-.describe-hero__name {
-  font-size: 26px;
-  font-weight: 800;
-}
-
-.rule-pill {
-  align-self: center;
-  background: var(--surface);
-  border: 1.5px solid var(--line);
-  color: var(--ink-2);
-  border-radius: var(--radius-pill);
-  padding: 8px 16px;
-  font-size: 14px;
-  text-align: center;
-  max-width: 100%;
-}
-
-.hint-cards {
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  padding: 12px 2px;
-  margin-top: 6px;
-  scrollbar-width: none;
-}
-
-.hint-cards::-webkit-scrollbar {
-  display: none;
-}
-
-.hint-card {
-  flex-shrink: 0;
-  background: var(--surface);
-  border: 1.5px solid var(--accent);
-  border-radius: 16px;
-  padding: 14px 16px;
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--accent-deep);
-  width: 128px;
-  text-align: center;
 }
 
 .out-row {
@@ -1848,8 +1793,7 @@ input {
   }
 
   .home__logo,
-  .splash__logo,
-  .describe-hero__avatar {
+  .splash__logo {
     animation: fade-in 0.2s ease !important;
   }
 

@@ -6,7 +6,7 @@ import type { Player } from '../game/types';
 /**
  * 关键路径冒烟：4 人（默认预填）简单模式完整一局（PRD §5 交付口径）。
  * 用固定发词替代随机（妈妈=卧底，词对 包子/饺子），驱动完整流程：
- * 看词防偷看 → 描述 → 逐人投票 → 公示 → 揭晓 → 结算 → 连局 / 战绩入档。
+ * 看词防偷看 → 直接开始投票（无描述环节）→ 逐人投票 → 公示 → 揭晓 → 结算 → 连局 / 战绩入档。
  */
 vi.mock('../game/dealer', () => ({
   dealGame: (roster: Player[]) => ({
@@ -46,14 +46,10 @@ async function playToFinal(): Promise<{ user: ReturnType<typeof userEvent.setup>
     expect(screen.queryByText(words[i])).not.toBeInTheDocument(); // 防偷看：词消失
   }
 
-  // P4 态 C → P5 描述轮（简单模式句式提示）
+  // P4 态 C：全员看完 → 直接开始投票（2026-09-21 修订：无描述环节，家人面对面自由交流）
   expect(await screen.findByText('词都记住啦！')).toBeVisible();
-  await user.click(screen.getByRole('button', { name: '开始描述 🎤' }));
-  expect(await screen.findByText('轮到爸爸描述啦')).toBeVisible();
-  expect(screen.getByText('它是一种动物')).toBeVisible();
-  for (let i = 0; i < names.length - 1; i++) {
-    await user.click(screen.getByRole('button', { name: '说完啦，下一位 →' }));
-  }
+  expect(screen.getByText('聊一聊，再来投票')).toBeVisible(); // 简单模式短文案
+  expect(screen.queryByRole('button', { name: '开始描述 🎤' })).not.toBeInTheDocument();
   await user.click(screen.getByRole('button', { name: '开始投票 🗳️' }));
 
   // P6：逐人秘密投票（除妈妈本人外全部投妈妈；候选不含自己，妈妈投爸爸）

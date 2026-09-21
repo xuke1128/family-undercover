@@ -4,7 +4,6 @@ import type { Action } from '../game/machine';
 import { ActionButton } from '../ui/Button';
 import { Modal } from '../ui/Modal';
 import { PeekView } from './PeekView';
-import { DescribeView } from './DescribeView';
 import { VoteView } from './VoteView';
 import { VoteResultView } from './VoteResultView';
 import { RevealView } from './RevealView';
@@ -35,11 +34,9 @@ export function GameView({ state, dispatch, onRestart, onNextGame, onEditRoster,
           state={state}
           onConfirm={() => dispatch({ type: 'PEEK_CONFIRM' })}
           onHide={() => dispatch({ type: 'PEEK_HIDE' })}
-          onStartDescribe={() => dispatch({ type: 'START_DESCRIBE' })}
+          onStartVote={() => dispatch({ type: 'START_VOTE' })}
         />
       )}
-
-      {phase.kind === 'describe' && <DescribeView state={state} onNext={() => dispatch({ type: 'DESCRIBE_NEXT' })} />}
 
       {phase.kind === 'vote' && (
         <VoteView

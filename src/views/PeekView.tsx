@@ -9,15 +9,16 @@ interface PeekViewProps {
   state: GameState;
   onConfirm: () => void;
   onHide: () => void;
-  onStartDescribe: () => void;
+  onStartVote: () => void;
 }
 
 /**
  * P4 传机看词（防偷看核心页，US3/US4）：
- * 态 A 交接确认 → 态 B 翻牌显词 → 「记住啦，隐藏」→ 下一位；全部看完进完成态。
+ * 态 A 交接确认 → 态 B 翻牌显词 → 「记住啦，隐藏」→ 下一位；全部看完进完成态，
+ * 点「开始投票」直接进入 P6（无描述环节）。
  * 词语文本只在态 B 渲染（本文件 wordOf 的唯一调用点），其余视图不引用。
  */
-export function PeekView({ state, onConfirm, onHide, onStartDescribe }: PeekViewProps) {
+export function PeekView({ state, onConfirm, onHide, onStartVote }: PeekViewProps) {
   if (state.phase.kind !== 'peek' && state.phase.kind !== 'peekDone') return null;
   const mode = state.mode;
 
@@ -28,9 +29,9 @@ export function PeekView({ state, onConfirm, onHide, onStartDescribe }: PeekView
           🎉
         </div>
         <div className="stage-center__title">词都记住啦！</div>
-        <div className="stage-center__sub">接下来轮流说一句话</div>
-        <ActionButton variant="primary" onClick={onStartDescribe}>
-          开始描述 🎤
+        <div className="stage-center__sub">{COPY.peekDoneHint[mode]}</div>
+        <ActionButton variant="primary" onClick={onStartVote}>
+          开始投票 🗳️
         </ActionButton>
       </div>
     );

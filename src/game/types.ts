@@ -36,15 +36,13 @@ export interface Assignment {
 export type Phase =
   /** P4 态 A（revealed=false 交接确认）/ 态 B（revealed=true 显词） */
   | { kind: 'peek'; index: number; revealed: boolean }
-  /** P4 态 C：全员看完 */
+  /** P4 态 C：全员看完（直接引导进入投票，无描述环节） */
   | { kind: 'peekDone' }
-  /** P5 描述轮；tiebreak=true 即 P9 平票加赛形态（仅平票者描述） */
-  | { kind: 'describe'; index: number; tiebreak: boolean }
   /** P6 投票；confirmed=false 交接确认，true 选票中；tiebreak=true 为平票重投 */
   | { kind: 'vote'; index: number; confirmed: boolean; tiebreak: boolean }
   /** P7 票型公示 */
   | { kind: 'voteResult'; tiebreak: boolean }
-  /** P9 第一屏：平票，准备加赛 */
+  /** P9 第一屏：平票公告，全员直接重投一次（可换票） */
   | { kind: 'tieAnnounce' }
   /** P9 第二屏：重投仍平票，本轮无人出局 */
   | { kind: 'tieStuck' }
@@ -63,7 +61,7 @@ export interface GameState {
   votes: Vote[];
   /** 已出局玩家 id，按出局顺序 */
   eliminatedIds: string[];
-  /** 平票者 id（座位顺序），供加赛描述/重投使用 */
+  /** 平票者 id（座位顺序），供 P9 平票公告展示 */
   tiebreakIds: string[];
   /** 连续无人出局的轮数；≥3 触发 M2 兜底弹层 */
   noExitStreak: number;

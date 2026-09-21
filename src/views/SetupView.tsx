@@ -114,7 +114,7 @@ export function SetupView({ initialRoster, initialMode = 'simple', onBack, onSta
   };
 
   const modeNote =
-    mode === 'simple' ? '简单：3-6 人 · 儿童词库 · 有句式提示' : '普通：3-12 人 · 全词库 · 经典规则';
+    mode === 'simple' ? '简单：3-6 人 · 儿童词库' : '普通：3-12 人 · 全词库 · 经典规则';
 
   const newPlayerInvalid =
     newName.trim().length === 0 ||

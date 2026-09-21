@@ -7,10 +7,10 @@ import type { Player } from '../game/types';
  * QA 补充：防偷看结构性验证（US3 / 02-design F2 硬性约束、DP3）。
  * 现有 app.smoke 已验证「隐藏后词消失」，此处补齐：
  * - 交接态 A（未确认身份）时任何玩家的词都不在 DOM；
- * - 描述 / 投票交接 / 投票选票 / 票型公示各屏均无词语（词仅存在于看词态 B 与揭晓/结算）；
+ * - 看词完成过渡 / 投票交接 / 投票选票 / 票型公示各屏均无词语（词仅存在于看词态 B 与揭晓/结算）；
  * - 局内（P4-P7）无任何返回/回首页导航；
  * - 投票候选不含自己；
- * - 出局揭晓与终局结算按规则亮词（US7：出局者亮身份与词）。
+ * - 出局揭晓与终局结算按规则亮词（US6：出局者亮身份与词）。
  */
 vi.mock('../game/dealer', () => ({
   dealGame: (roster: Player[]) => ({
@@ -60,14 +60,11 @@ describe('QA 防偷看与局内导航（US3/DP3）', () => {
       expectNoWordAnywhere();
     }
 
-    // P5 描述轮：无词、无返回
-    await user.click(await screen.findByRole('button', { name: '开始描述 🎤' }));
-    expect(await screen.findByText('轮到爸爸描述啦')).toBeVisible();
+    // P4 态 C（看词完成过渡）：无词、无返回；直接开始投票（无描述环节）
+    expect(await screen.findByText('词都记住啦！')).toBeVisible();
     expectNoWordAnywhere();
     expectNoBackNavigation();
-    for (let i = 0; i < names.length - 1; i++) {
-      await user.click(screen.getByRole('button', { name: '说完啦，下一位 →' }));
-    }
+    expect(screen.queryByRole('button', { name: '开始描述 🎤' })).not.toBeInTheDocument();
     await user.click(screen.getByRole('button', { name: '开始投票 🗳️' }));
 
     // P6 投票交接态：无词、无返回

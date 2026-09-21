@@ -22,11 +22,13 @@ export function HowToPlaySheet({ onClose }: HowToPlaySheetProps) {
           </div>
           <div className="howto__step">
             <span className="howto__no">2</span>
-            <div className="howto__text">按顺序每人用一句话描述自己的词，不能说出词、不能说字。</div>
+            <div className="howto__text">
+              全员看完词，大家面对面聊一聊（不要把词说出口），聊多久都行。
+            </div>
           </div>
           <div className="howto__step">
             <span className="howto__no">3</span>
-            <div className="howto__text">全员描述完，再传机轮流投票，得票最多的人出局亮身份。</div>
+            <div className="howto__text">传机轮流投票，得票最多的人出局亮身份。平票就全员重投一次。</div>
           </div>
           <div className="howto__rules">
             平民都拿到同一个词，卧底拿到相近的另一个词，卧底自己也不知道是不是卧底。

@@ -2,7 +2,8 @@
  * 游戏状态机（玩法规则核心，PRD §3.2-§3.7 全部规则落在此处）：
  * - 纯 reducer：无 IO、无随机（发词由 App 层调用 dealer 生成 Assignment 后传入）；
  * - 局内单向线性（DP3）：不存在任何「回到上一屏」的 Action；
- * - 平票：首投平票 → 仅平票者描述 → 全员重投 → 仍平票则本轮无人出局；
+ * - 无描述环节（2026-09-21 修订）：全员看词完成后直接进入投票；
+ * - 平票：首投平票 → 全员直接重投一次（可换票）→ 仍平票则本轮无人出局；
  *   同一轮内最多重投一次；连续 3 轮无人出局触发 M2 兜底；
  * - 胜负：每次出局结算后按 §3.4 判定。
  */
@@ -15,8 +16,7 @@ export type Action =
   | { type: 'START_GAME'; roster: Player[]; mode: GameMode; assignment: Assignment }
   | { type: 'PEEK_CONFIRM' }
   | { type: 'PEEK_HIDE' }
-  | { type: 'START_DESCRIBE' }
-  | { type: 'DESCRIBE_NEXT' }
+  | { type: 'START_VOTE' }
   | { type: 'VOTER_CONFIRM' }
   | { type: 'VOTE_CAST'; targetId: string }
   | { type: 'PROCEED_FROM_RESULT' }
@@ -71,14 +71,6 @@ export function wordOf(state: GameState, playerId: string): string {
   return roleOf(state, playerId) === 'undercover' ? state.assignment.pair.undercover : state.assignment.pair.civilian;
 }
 
-/** 描述轮次序：常规轮 = 存活者（座位序）；平票加赛 = 仅平票者（座位序） */
-export function describeOrder(state: GameState): string[] {
-  if (state.phase.kind !== 'describe') return [];
-  return state.phase.tiebreak
-    ? state.roster.filter((p) => state.tiebreakIds.includes(p.id)).map((p) => p.id)
-    : aliveIds(state);
-}
-
 export function playerById(state: GameState, id: string): Player {
   const p = state.roster.find((x) => x.id === id);
   if (!p) throw new Error(`playerById: 未知玩家 ${id}`);
@@ -115,20 +107,10 @@ export function gameReducer(state: GameState | null, action: Action): GameState 
       return { ...state, phase: { kind: 'peekDone' } };
     }
 
-    case 'START_DESCRIBE': {
+    case 'START_VOTE': {
+      // 看词完成 → 直接进入投票（2026-09-21 修订：删除描述环节）
       if (state.phase.kind !== 'peekDone') return state;
-      return { ...state, phase: { kind: 'describe', index: 0, tiebreak: false } };
-    }
-
-    case 'DESCRIBE_NEXT': {
-      if (state.phase.kind !== 'describe') return state;
-      const order = describeOrder(state);
-      const next = state.phase.index + 1;
-      if (next < order.length) {
-        return { ...state, phase: { ...state.phase, index: next } };
-      }
-      // 描述完成 → 投票（加赛轮的投票即「重新投票」）
-      return { ...state, phase: { kind: 'vote', index: 0, confirmed: false, tiebreak: state.phase.tiebreak } };
+      return { ...state, phase: { kind: 'vote', index: 0, confirmed: false, tiebreak: false } };
     }
 
     case 'VOTER_CONFIRM': {
@@ -164,8 +146,8 @@ export function gameReducer(state: GameState | null, action: Action): GameState 
         };
       }
       if (!state.phase.tiebreak) {
-        // 首投平票 → 平票者补描述后全员重投（P9 第一屏 → P5 加赛形态）
-        // votes 暂不清空：P9 需展示并列者票数，加赛开始时再清
+        // 首投平票 → 全员直接重投一次（P9 公告后进入重投轮，可换票）
+        // votes 暂不清空：P9 需展示并列者票数，重投开始时再清
         const tiedInSeatOrder = aliveIds(state).filter((id) => tally.topIds.includes(id));
         return {
           ...state,
@@ -186,8 +168,9 @@ export function gameReducer(state: GameState | null, action: Action): GameState 
     }
 
     case 'START_TIEBREAK': {
+      // 全员直接重投（无补充环节）；候选仍为除自己外的存活玩家
       if (state.phase.kind !== 'tieAnnounce') return state;
-      return { ...state, votes: [], phase: { kind: 'describe', index: 0, tiebreak: true } };
+      return { ...state, votes: [], tiebreakIds: [], phase: { kind: 'vote', index: 0, confirmed: false, tiebreak: true } };
     }
 
     case 'TIE_STUCK_NEXT': {
@@ -195,7 +178,7 @@ export function gameReducer(state: GameState | null, action: Action): GameState 
       return {
         ...state,
         roundNo: state.roundNo + 1,
-        phase: { kind: 'describe', index: 0, tiebreak: false },
+        phase: { kind: 'vote', index: 0, confirmed: false, tiebreak: false },
       };
     }
 
@@ -221,7 +204,7 @@ export function gameReducer(state: GameState | null, action: Action): GameState 
         tiebreakIds: [],
         noExitStreak: 0,
         roundNo: state.roundNo + 1,
-        phase: { kind: 'describe', index: 0, tiebreak: false },
+        phase: { kind: 'vote', index: 0, confirmed: false, tiebreak: false },
       };
     }
 

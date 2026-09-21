@@ -4,10 +4,10 @@ import userEvent from '@testing-library/user-event';
 import type { Player } from '../game/types';
 
 /**
- * QA 补充：平票两段流程与 3 轮兜底的 UI 级验证（US7，PRD §3.3）。
+ * QA 补充：平票「全员直接重投一次」流程与 3 轮兜底的 UI 级验证（US6，PRD §3.3，2026-09-21 修订）。
  * 现有 machine.test 已覆盖状态机层面，此处经真实 UI 驱动完整链路：
- * - 首投平票 → P9 公告（并列者票数）→ 仅平票者加赛描述 → 全员重投 → 唯一最高出局；
- * - 重投仍平票 → 本轮无人出局 → 下一轮全员描述；
+ * - 首投平票 → P9 公告（并列者票数）→ 全员直接重投一次（可换票，无任何补充发言环节）→ 唯一最高出局；
+ * - 重投仍平票 → 本轮无人出局 → 直接进入下一轮投票（轮次横幅提示）；
  * - 出局者不在后续轮次与候选中（灰显「已出局」）；
  * - 连续 3 轮无人出局 → M2 兜底弹层 → 重开本局（M1 二次确认）→ 回到看词且不计战绩。
  */
@@ -30,7 +30,7 @@ async function startGame(user: ReturnType<typeof userEvent.setup>): Promise<void
   await user.click(screen.getByRole('button', { name: '开始游戏' }));
 }
 
-/** 全员看词并进入描述轮 */
+/** 全员看词后直接开始投票（无描述环节） */
 async function peekAll(user: ReturnType<typeof userEvent.setup>): Promise<void> {
   for (const name of names) {
     expect(await screen.findByText('下一个是')).toBeVisible();
@@ -39,26 +39,7 @@ async function peekAll(user: ReturnType<typeof userEvent.setup>): Promise<void> 
     await user.click(screen.getByRole('button', { name: '记住啦，隐藏 🙊' }));
   }
   expect(await screen.findByText('词都记住啦！')).toBeVisible();
-  await user.click(screen.getByRole('button', { name: '开始描述 🎤' }));
-}
-
-/** 当前描述轮走完并点「开始投票 / 重新投票」 */
-async function describeAll(user: ReturnType<typeof userEvent.setup>): Promise<void> {
-  for (let guard = 0; guard < 20; guard++) {
-    if (screen.queryByRole('button', { name: '说完啦，下一位 →' })) {
-      await user.click(screen.getByRole('button', { name: '说完啦，下一位 →' }));
-      continue;
-    }
-    const toVote =
-      screen.queryByRole('button', { name: '开始投票 🗳️' }) ?? screen.queryByRole('button', { name: '重新投票 🗳️' });
-    if (toVote) {
-      await user.click(toVote);
-      return;
-    }
-    if (screen.queryByRole('button', { name: '是我，投票 🤫' })) return; // 已在投票交接态
-    throw new Error('describeAll：意外的界面状态');
-  }
-  throw new Error('describeAll：推进次数超限');
+  await user.click(screen.getByRole('button', { name: '开始投票 🗳️' }));
 }
 
 /** 逐人投票直到离开投票环节；targetOf = 投票人昵称 -> 被投者昵称（兼容已确认的选票态） */
@@ -82,22 +63,20 @@ async function voteAll(
   throw new Error('voteAll：投票人数超限');
 }
 
-/** 走完一轮「首投平票 → 加赛 → 重投仍平票 → 无人出局 → 下一轮全员描述」 */
+/** 走完一轮「首投平票 → 全员直接重投仍平票 → 无人出局 → 进入下一轮」 */
 async function stuckRound(user: ReturnType<typeof userEvent.setup>, tieMap: (voter: string) => string): Promise<void> {
-  await describeAll(user);
   await voteAll(user, tieMap);
-  await user.click(await screen.findByRole('button', { name: '平票了，看看怎么办 ▶' }));
+  await user.click(await screen.findByRole('button', { name: '重新投一次 ▶' }));
   expect(await screen.findByText('平票啦！')).toBeVisible();
-  await user.click(screen.getByRole('button', { name: '开始加赛 🎤' }));
-  await describeAll(user);
-  await voteAll(user, tieMap);
-  await user.click(await screen.findByRole('button', { name: '平票了，看看怎么办 ▶' }));
+  await user.click(screen.getByRole('button', { name: '重新投票 🗳️' }));
+  await voteAll(user, tieMap); // 重投（可换票），仍平票
+  await user.click(await screen.findByRole('button', { name: '重新投一次 ▶' }));
   expect(await screen.findByText('还是平票')).toBeVisible();
   await user.click(screen.getByRole('button', { name: '下一轮 ▶' }));
 }
 
-describe('QA 平票两段流程（PRD §3.3）', () => {
-  it('首投平票 → 仅平票者加赛 → 重投唯一最高出局 → 下一轮不含出局者', async () => {
+describe('QA 平票直接重投流程（PRD §3.3）', () => {
+  it('首投平票 → 全员直接重投（无补充环节）→ 重投唯一最高出局 → 下一轮不含出局者', async () => {
     const user = userEvent.setup();
     render(<App />);
     await startGame(user);
@@ -105,26 +84,23 @@ describe('QA 平票两段流程（PRD §3.3）', () => {
 
     // 第 1 轮：爸爸 2 票、妈妈 2 票平票（无人投自己）
     const tieMap = (voter: string) => (voter === '爸爸' || voter === '哥哥' ? '妈妈' : '爸爸');
-    await describeAll(user);
     await voteAll(user, tieMap);
 
-    // P9 第一屏：并列者及票数 + 简单模式短文案
-    await user.click(await screen.findByRole('button', { name: '平票了，看看怎么办 ▶' }));
+    // P9 第一屏：并列者及票数 + 简单模式短文案；无任何补充发言环节
+    await user.click(await screen.findByRole('button', { name: '重新投一次 ▶' }));
     expect(await screen.findByText('平票啦！')).toBeVisible();
     expect(screen.getByText('爸爸 2 票')).toBeVisible();
     expect(screen.getByText('妈妈 2 票')).toBeVisible();
-    expect(screen.getByText('他们再说一句，大家再投一次')).toBeVisible();
+    expect(screen.getByText('再投一次，可以换人')).toBeVisible();
+    expect(screen.queryByRole('button', { name: '开始加赛 🎤' })).not.toBeInTheDocument();
 
-    // 加赛：横幅 + 仅平票者（爸爸、妈妈，按座位序）在轮次中
-    await user.click(screen.getByRole('button', { name: '开始加赛 🎤' }));
-    expect(await screen.findByText('⚖️ 平票加时赛：只听下面的人再各说一句')).toBeVisible();
-    expect(screen.getByText('第 1/2 位')).toBeVisible();
-    expect(screen.getByText('轮到爸爸描述啦')).toBeVisible();
-
-    await describeAll(user);
-    // 重投环节：先经交接确认，选票页带「重新投票」标注
+    // 直接重投：交接卡与选票页均带「重新投票 · 可以换票」标注
+    await user.click(screen.getByRole('button', { name: '重新投票 🗳️' }));
+    expect(await screen.findByText('🔄 重新投票 · 可以换票')).toBeVisible();
     await user.click(await screen.findByRole('button', { name: '是我，投票 🤫' }));
-    expect(await screen.findByText('⚖️ 重新投票')).toBeVisible();
+    expect(await screen.findByText('爸爸，你觉得谁是卧底？')).toBeVisible();
+    expect(screen.getByText('🔄 重新投票 · 可以换票')).toBeVisible();
+
     // 重投集中投哥哥（哥哥本人投爸爸）→ 唯一最高 3 票
     await voteAll(user, (voter) => (voter === '哥哥' ? '爸爸' : '哥哥'));
     await user.click(await screen.findByRole('button', { name: '揭晓出局者 ▶' }));
@@ -135,28 +111,25 @@ describe('QA 平票两段流程（PRD §3.3）', () => {
     await user.click(screen.getByRole('button', { name: '翻开身份 🎴' }));
     expect(await screen.findByText('🌱 平民')).toBeVisible();
     await user.click(screen.getByRole('button', { name: '继续 ▶' }));
-    expect(await screen.findByText(/第 2 轮 · 描述（还剩 3 人）/)).toBeVisible();
+    expect(await screen.findByText('第 2 轮 · 还剩 3 人')).toBeVisible();
 
-    // 第 2 轮：描述轮次不含哥哥；投票候选不含哥哥（灰显已出局）
-    await describeAll(user);
-    expect(screen.queryByText('轮到哥哥描述啦')).not.toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: '是我，投票 🤫' }));
+    // 第 2 轮：投票候选不含哥哥（灰显已出局）
+    await user.click(await screen.findByRole('button', { name: '是我，投票 🤫' }));
     expect(await screen.findByText('爸爸，你觉得谁是卧底？')).toBeVisible();
     expect(screen.queryByRole('radio', { name: '哥哥' })).not.toBeInTheDocument();
     expect(screen.getByText('已出局：')).toBeVisible();
 
-    // 第 2 轮 3 人循环互投 → 平票 → 加赛 → 重投仍平票 → 无人出局进入第 3 轮
+    // 第 2 轮 3 人循环互投 → 平票 → 直接重投仍平票 → 无人出局进入第 3 轮
     const cycle3 = (voter: string) => (voter === '爸爸' ? '妈妈' : voter === '妈妈' ? '妹妹' : '爸爸');
     await voteAll(user, cycle3);
-    await user.click(await screen.findByRole('button', { name: '平票了，看看怎么办 ▶' }));
-    await user.click(await screen.findByRole('button', { name: '开始加赛 🎤' }));
-    await describeAll(user);
+    await user.click(await screen.findByRole('button', { name: '重新投一次 ▶' }));
+    await user.click(await screen.findByRole('button', { name: '重新投票 🗳️' }));
     await voteAll(user, cycle3);
-    await user.click(await screen.findByRole('button', { name: '平票了，看看怎么办 ▶' }));
+    await user.click(await screen.findByRole('button', { name: '重新投一次 ▶' }));
     expect(await screen.findByText('还是平票')).toBeVisible();
     expect(screen.getByText('这轮没人出局，再来！')).toBeVisible();
     await user.click(screen.getByRole('button', { name: '下一轮 ▶' }));
-    expect(await screen.findByText(/第 3 轮 · 描述（还剩 3 人）/)).toBeVisible();
+    expect(await screen.findByText('第 3 轮 · 还剩 3 人')).toBeVisible();
   }, 120000);
 });
 
@@ -167,16 +140,16 @@ describe('QA 连续 3 轮无人出局的兜底与重开（PRD §3.3 兜底 / M2�
     await startGame(user);
     await peekAll(user);
 
-    // 4 人两两互投：爸爸/妈妈各 2 票、哥哥/妹妹各 2 票，首投与重投均平票 → 每轮无人出局
+    // 4 人互投各得 1 票：首投与重投均平票 → 每轮无人出局
     const tieMap = (voter: string) =>
       voter === '爸爸' ? '妈妈' : voter === '妈妈' ? '爸爸' : voter === '哥哥' ? '妹妹' : '哥哥';
 
     // 连续 3 轮无人出局；前两轮不出现兜底弹层
     await stuckRound(user, tieMap);
-    expect(await screen.findByText('第 2 轮 · 描述')).toBeVisible();
+    expect(await screen.findByText('第 2 轮 · 还剩 4 人')).toBeVisible();
     expect(screen.queryByText('😵 连续 3 轮没人出局')).not.toBeInTheDocument();
     await stuckRound(user, tieMap);
-    expect(await screen.findByText('第 3 轮 · 描述')).toBeVisible();
+    expect(await screen.findByText('第 3 轮 · 还剩 4 人')).toBeVisible();
     expect(screen.queryByText('😵 连续 3 轮没人出局')).not.toBeInTheDocument();
     await stuckRound(user, tieMap);
 
