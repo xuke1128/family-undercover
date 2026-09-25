@@ -198,3 +198,10 @@
 - 升级说明：纯前端静态产物，**重新构建部署 `dist/` 即完成升级**；战绩存于浏览器 localStorage 且结构向后兼容，老用户战绩无损保留。
 - 文档备份：项目文档已备份入仓（`apps/family-undercover/docs/`：PRD / 设计增补 / 技术方案 / 测试报告 / 发布文档 / 13 张界面图），v0.3.0 起以仓库内 `docs/` 为准。
 - 发布记录：提交 `87fa767`（feat(game)）+ `b609b73`（chore(release): 0.3.0），tag `v0.3.0` 已推送 origin；CI 与 Deploy to GitHub Pages 均 success（run 36151834843 / 36151834856），线上 https://xuke1128.github.io/family-undercover/ 返回 200，线上 JS bundle 与本地 `dist/assets/index-Bfu1DRT5.js` MD5 一致（`6a7234033fed35cb335374d5a585bfac`）。
+
+## 10. Release Notes · v0.3.1（2026-09-25，热修）
+
+- **问题**：v0.3.0 部署后老用户看不到新版——Service Worker 对页面外壳采用 cache-first 且 CACHE_NAME 从未变更，浏览器永不回源，新版本无法送达老访客（用户实测反馈）。
+- **修复**：SW 策略重写——页面外壳改为「网络优先，断网回退缓存」（离线可玩不受影响）；带 hash 构建产物维持 cache-first；CACHE_NAME 随版本递增并在 activate 时清理全部旧缓存；前端监听 controllerchange，新版 SW 接管后自动刷新一次页面。
+- **流程约定**：此后每次发版必须同步递增 sw.js 的 CACHE_NAME 版本号（文件头已注明）。
+- 验证：build / test（81/81）/ lint 全绿；线上 sw.js 字节更新后，老用户首次打开→SW 更新接管→自动刷新即为新版。

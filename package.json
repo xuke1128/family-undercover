@@ -1,7 +1,7 @@
 {
   "name": "family-undercover",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.3.1",
   "type": "module",
   "description": "家庭卧底派对：一台手机传着玩的合家欢「谁是卧底」，纯前端零联网",
   "scripts": {

@@ -1,11 +1,13 @@
 /*
  * 家庭卧底派对 · 离线缓存 Service Worker
- * 策略：cache-first（先缓存后网络）——首次访问时缓存外壳与构建产物，
- * 之后（含断网）全部从缓存提供；导航请求回退到缓存的 index.html。
- * 说明：Web 平台无法在「从未访问过」的设备上离线打开，此为平台固有限制。
+ * 策略（v0.3.1 起）：
+ *   - 页面外壳（导航/HTML）：网络优先——有网先拿最新版，失败回退缓存，离线可玩不受影响；
+ *   - 带 hash 的构建产物与其他同源静态资源：cache-first（内容变则文件名变，安全）；
+ *   - CACHE_NAME 随版本递增，activate 时清理全部旧缓存。
+ * 注意：每次发版必须更新 CACHE_NAME 的版本号，否则老用户拿不到新版（v0.3.0 的教训）。
  */
 
-const CACHE_NAME = 'family-undercover-v1';
+const CACHE_NAME = 'family-undercover-v0.3.1';
 
 self.addEventListener('install', (event) => {
   self.skipWaiting();
@@ -27,24 +29,42 @@ self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET') return;
 
-  event.respondWith(
-    caches.match(request, { ignoreSearch: request.mode === 'navigate' }).then((cached) => {
-      if (cached) return cached;
-      return fetch(request)
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return;
+
+  // 外壳：网络优先，保证发版后老用户能拿到新版；断网时回退缓存（保离线）
+  if (request.mode === 'navigate' || request.destination === 'document') {
+    event.respondWith(
+      fetch(request)
         .then((response) => {
-          // 同源成功响应写入缓存（构建产物带 hash，可安全长期缓存）
-          if (response.ok && new URL(request.url).origin === self.location.origin) {
+          if (response.ok) {
             const clone = response.clone();
             caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
           }
           return response;
         })
-        .catch(() => {
-          if (request.mode === 'navigate') {
-            return caches.match('./index.html');
+        .catch(() =>
+          caches
+            .match(request, { ignoreSearch: true })
+            .then((cached) => cached || caches.match('./index.html')),
+        ),
+    );
+    return;
+  }
+
+  // 静态资源：cache-first（构建产物带 hash，内容变则文件名变）
+  event.respondWith(
+    caches.match(request).then((cached) => {
+      if (cached) return cached;
+      return fetch(request)
+        .then((response) => {
+          if (response.ok) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, clone));
           }
-          return Response.error();
-        });
+          return response;
+        })
+        .catch(() => Response.error());
     }),
   );
 });
