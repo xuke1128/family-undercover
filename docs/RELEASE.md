@@ -188,3 +188,13 @@
 | git | 本地 init（main）+ 3 笔 Conventional Commits + 本地 tag v0.1.0，无远程 |
 
 业务代码（`src/`、`public/`、`index.html`）与 `docs/01-04` 文档：**未改动**。
+
+## 9. Release Notes · v0.3.0（2026-09-25）
+
+- 门禁依据：测试报告 §9 v0.3.0 回归验收——**15 文件 / 81 用例全绿**（v0.2.0 的 73 例 + 新增 8 例），`npm run build` / `npm test` / `npm run lint` 全绿，0 阻断。
+- 玩法变更（设计权威：`family-undercover-design-addendum-v030.md`）：
+  1. **出局只亮身份不亮词**：出局揭晓页仅展示身份（卧底/平民），词语的唯一公开时机为终局结算页，降低中途剧透与身份反推。
+  2. **顺序随机**：看词顺序每局随机；每轮投票顺序该轮重排（平票重投沿用本轮序、出局者移除；内部固定随机种子，可复现可测试）。
+- 升级说明：纯前端静态产物，**重新构建部署 `dist/` 即完成升级**；战绩存于浏览器 localStorage 且结构向后兼容，老用户战绩无损保留。
+- 文档备份：项目文档已备份入仓（`apps/family-undercover/docs/`：PRD / 设计增补 / 技术方案 / 测试报告 / 发布文档 / 13 张界面图），v0.3.0 起以仓库内 `docs/` 为准。
+- 发布记录：提交 `87fa767`（feat(game)）+ `b609b73`（chore(release): 0.3.0），tag `v0.3.0` 已推送 origin；CI 与 Deploy to GitHub Pages 均 success（run 36151834843 / 36151834856），线上 https://xuke1128.github.io/family-undercover/ 返回 200，线上 JS bundle 与本地 `dist/assets/index-Bfu1DRT5.js` MD5 一致（`6a7234033fed35cb335374d5a585bfac`）。
