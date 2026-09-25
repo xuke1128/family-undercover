@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" font-family="'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif">
+  <title>P8-B 出局揭晓：翻牌亮身份（只亮身份、不亮词）</title>
+  <defs>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.6" fill="#F3E9DC"/></pattern>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#46332E" flood-opacity="0.08"/></filter>
+    <filter id="btnp" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#8C6FE6" flood-opacity="0.32"/></filter>
+    <filter id="btn" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#F0633F" flood-opacity="0.30"/></filter>
+  </defs>
+  <rect width="390" height="844" rx="40" fill="#FFF8EF"/>
+  <rect width="390" height="844" rx="40" fill="url(#dots)"/>
+  <g>
+    <text x="46" y="46" font-size="15" font-weight="600" fill="#46372E">9:41</text>
+    <g fill="#9C8B7E">
+      <rect x="286" y="40" width="3" height="6" rx="1.5"/>
+      <rect x="292" y="37" width="3" height="9" rx="1.5"/>
+      <rect x="298" y="34" width="3" height="12" rx="1.5"/>
+      <rect x="304" y="31" width="3" height="15" rx="1.5"/>
+      <rect x="318" y="34" width="22" height="11" rx="3.5" fill="none" stroke="#9C8B7E" stroke-width="1.5"/>
+      <rect x="320.5" y="36.5" width="13" height="6" rx="2"/>
+      <rect x="341.5" y="37" width="2.5" height="5" rx="1.2"/>
+    </g>
+  </g>
+  <text x="195" y="96" font-size="16" fill="#9C8B7E" text-anchor="middle">揭晓时刻 🔍</text>
+  <text x="195" y="136" font-size="15" fill="#9C8B7E" text-anchor="middle">出局的是 爸爸，他的身份是——</text>
+  <rect x="48" y="164" width="294" height="298" rx="24" fill="#8C6FE6" filter="url(#btnp)"/>
+  <text x="76" y="202" font-size="14" fill="#FFFFFF" opacity="0.7">✦</text>
+  <text x="308" y="202" font-size="14" fill="#FFFFFF" opacity="0.7">✦</text>
+  <text x="76" y="434" font-size="10" fill="#FFFFFF" opacity="0.7">✦</text>
+  <text x="308" y="434" font-size="10" fill="#FFFFFF" opacity="0.7">✦</text>
+  <circle cx="195" cy="248" r="46" fill="#FFFFFF"/>
+  <text x="195" y="266" font-size="44" text-anchor="middle">🐼</text>
+  <text x="195" y="330" font-size="22" font-weight="800" fill="#FFFFFF" text-anchor="middle">爸 爸</text>
+  <line x1="150" y1="352" x2="240" y2="352" stroke="#FFFFFF" stroke-width="1.5" opacity="0.35"/>
+  <text x="195" y="420" font-size="36" font-weight="800" fill="#FFFFFF" text-anchor="middle">🎭 卧底！</text>
+  <text x="195" y="500" font-size="14" fill="#9C8B7E" text-anchor="middle">词语会在终局揭晓，别急 👀</text>
+  <rect x="120" y="540" width="8" height="12" rx="2" fill="#8C6FE6" opacity="0.5" transform="rotate(20 124 546)"/>
+  <circle cx="160" cy="556" r="4" fill="#FFC94D"/>
+  <rect x="196" y="532" width="8" height="12" rx="2" fill="#3EC9A7" opacity="0.6" transform="rotate(-15 200 538)"/>
+  <circle cx="238" cy="552" r="4" fill="#F0633F" opacity="0.5"/>
+  <rect x="262" y="540" width="8" height="12" rx="2" fill="#8C6FE6" opacity="0.4" transform="rotate(30 266 546)"/>
+  <text x="195" y="598" font-size="14" fill="#9C8B7E" text-anchor="middle">全家一起围观揭晓 🎉</text>
+  <rect x="24" y="728" width="342" height="64" rx="32" fill="#F0633F" filter="url(#btn)"/>
+  <text x="195" y="768" font-size="20" font-weight="700" fill="#FFFFFF" text-anchor="middle">继续 ▶</text>
+  <rect x="128" y="826" width="134" height="5" rx="2.5" fill="#46372E" opacity="0.85"/>
+</svg>

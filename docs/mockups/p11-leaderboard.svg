@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" font-family="'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif">
+  <title>P11 战绩排行榜</title>
+  <defs>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.6" fill="#F3E9DC"/></pattern>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#46332E" flood-opacity="0.08"/></filter>
+  </defs>
+  <rect width="390" height="844" rx="40" fill="#FFF8EF"/>
+  <rect width="390" height="844" rx="40" fill="url(#dots)"/>
+  <circle cx="60" cy="180" r="60" fill="#FFC94D" opacity="0.08"/>
+  <g>
+    <text x="46" y="46" font-size="15" font-weight="600" fill="#46372E">9:41</text>
+    <g fill="#9C8B7E">
+      <rect x="286" y="40" width="3" height="6" rx="1.5"/>
+      <rect x="292" y="37" width="3" height="9" rx="1.5"/>
+      <rect x="298" y="34" width="3" height="12" rx="1.5"/>
+      <rect x="304" y="31" width="3" height="15" rx="1.5"/>
+      <rect x="318" y="34" width="22" height="11" rx="3.5" fill="none" stroke="#9C8B7E" stroke-width="1.5"/>
+      <rect x="320.5" y="36.5" width="13" height="6" rx="2"/>
+      <rect x="341.5" y="37" width="2.5" height="5" rx="1.2"/>
+    </g>
+  </g>
+  <text x="32" y="70" font-size="28" font-weight="700" fill="#46372E">‹</text>
+  <text x="64" y="67" font-size="20" font-weight="800" fill="#46372E">家庭排行榜</text>
+  <text x="24" y="98" font-size="13" fill="#9C8B7E">按胜场排序，同胜场看胜率</text>
+  <rect x="24" y="118" width="342" height="430" rx="20" fill="#FFFFFF" stroke="#F3E9DC" filter="url(#sh)"/>
+  <text x="48" y="178" font-size="24" text-anchor="middle">🥇</text>
+  <circle cx="104" cy="168" r="22" fill="#E9F9F3"/><text x="104" y="177" font-size="20" text-anchor="middle">🐵</text>
+  <text x="140" y="174" font-size="17" font-weight="700" fill="#46372E">小美</text>
+  <text x="296" y="174" font-size="14" fill="#46372E" text-anchor="end">12 胜 / 20 局</text>
+  <rect x="304" y="154" width="48" height="28" rx="14" fill="#E9F9F3"/>
+  <text x="328" y="173" font-size="13" font-weight="700" fill="#1F8A6E" text-anchor="middle">60%</text>
+  <line x1="44" y1="204" x2="346" y2="204" stroke="#F3E9DC"/>
+  <text x="48" y="262" font-size="24" text-anchor="middle">🥈</text>
+  <circle cx="104" cy="252" r="22" fill="#FFEDE6"/><text x="104" y="261" font-size="20" text-anchor="middle">🐼</text>
+  <text x="140" y="258" font-size="17" font-weight="700" fill="#46372E">爸爸</text>
+  <text x="296" y="258" font-size="14" fill="#46372E" text-anchor="end">10 胜 / 18 局</text>
+  <rect x="304" y="238" width="48" height="28" rx="14" fill="#E9F9F3"/>
+  <text x="328" y="257" font-size="13" font-weight="700" fill="#1F8A6E" text-anchor="middle">56%</text>
+  <line x1="44" y1="288" x2="346" y2="288" stroke="#F3E9DC"/>
+  <text x="48" y="346" font-size="24" text-anchor="middle">🥉</text>
+  <circle cx="104" cy="336" r="22" fill="#E9F9F3"/><text x="104" y="345" font-size="20" text-anchor="middle">🐻</text>
+  <text x="140" y="342" font-size="17" font-weight="700" fill="#46372E">奶奶</text>
+  <text x="296" y="342" font-size="14" fill="#46372E" text-anchor="end">8 胜 / 15 局</text>
+  <rect x="304" y="322" width="48" height="28" rx="14" fill="#E9F9F3"/>
+  <text x="328" y="341" font-size="13" font-weight="700" fill="#1F8A6E" text-anchor="middle">53%</text>
+  <line x1="44" y1="372" x2="346" y2="372" stroke="#F3E9DC"/>
+  <circle cx="48" cy="424" r="14" fill="none" stroke="#C9BCAE" stroke-width="2"/>
+  <text x="48" y="429" font-size="14" font-weight="600" fill="#9C8B7E" text-anchor="middle">4</text>
+  <circle cx="104" cy="420" r="22" fill="#FFEDE6"/><text x="104" y="429" font-size="20" text-anchor="middle">🐰</text>
+  <text x="140" y="426" font-size="17" font-weight="700" fill="#46372E">妈妈</text>
+  <text x="296" y="426" font-size="14" fill="#46372E" text-anchor="end">7 胜 / 14 局</text>
+  <rect x="304" y="406" width="48" height="28" rx="14" fill="#E9F9F3"/>
+  <text x="328" y="425" font-size="13" font-weight="700" fill="#1F8A6E" text-anchor="middle">50%</text>
+  <line x1="44" y1="456" x2="346" y2="456" stroke="#F3E9DC"/>
+  <circle cx="48" cy="508" r="14" fill="none" stroke="#C9BCAE" stroke-width="2"/>
+  <text x="48" y="513" font-size="14" font-weight="600" fill="#9C8B7E" text-anchor="middle">5</text>
+  <circle cx="104" cy="504" r="22" fill="#FFF6DF"/><text x="104" y="513" font-size="20" text-anchor="middle">🦊</text>
+  <text x="140" y="510" font-size="17" font-weight="700" fill="#46372E">妹妹</text>
+  <text x="296" y="510" font-size="14" fill="#46372E" text-anchor="end">6 胜 / 10 局</text>
+  <rect x="304" y="490" width="48" height="28" rx="14" fill="#E9F9F3"/>
+  <text x="328" y="509" font-size="13" font-weight="700" fill="#1F8A6E" text-anchor="middle">60%</text>
+  <text x="195" y="600" font-size="14" fill="#9C8B7E" text-anchor="middle">🗑️ 清空战绩</text>
+  <text x="195" y="634" font-size="12" fill="#C9BCAE" text-anchor="middle">战绩只存在这台手机上</text>
+  <rect x="128" y="826" width="134" height="5" rx="2.5" fill="#46372E" opacity="0.85"/>
+</svg>

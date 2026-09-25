@@ -38,7 +38,8 @@ export type Phase =
   | { kind: 'peek'; index: number; revealed: boolean }
   /** P4 态 C：全员看完（直接引导进入投票，无描述环节） */
   | { kind: 'peekDone' }
-  /** P6 投票；confirmed=false 交接确认，true 选票中；tiebreak=true 为平票重投 */
+  /** P6 投票；confirmed=false 交接确认，true 选票中；tiebreak=true 为平票重投。
+   *  index 为当前投票人在 voteOrder 中的位置 */
   | { kind: 'vote'; index: number; confirmed: boolean; tiebreak: boolean }
   /** P7 票型公示 */
   | { kind: 'voteResult'; tiebreak: boolean }
@@ -55,6 +56,10 @@ export interface GameState {
   mode: GameMode;
   roster: Player[];
   assignment: Assignment;
+  /** 本局看词顺序（玩家 id，开局随机生成一次、与名单顺序无关，PRD §9-15） */
+  peekOrder: string[];
+  /** 当前轮投票顺序（玩家 id，每轮开始时重新洗牌；平票重投沿用本轮不重排） */
+  voteOrder: string[];
   phase: Phase;
   roundNo: number;
   /** 当前投票轮（含平票重投）的选票，按投票顺序 */

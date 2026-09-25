@@ -89,7 +89,7 @@ function AppInner() {
   const startGame = useCallback(
     (roster: Player[], mode: GameMode) => {
       const assignment = makeAssignment(roster, mode);
-      dispatch({ type: 'START_GAME', roster, mode, assignment });
+      dispatch({ type: 'START_GAME', roster, mode, assignment, rng: mathRandom });
       setScreen({ name: 'game' });
     },
     [makeAssignment],
@@ -100,7 +100,7 @@ function AppInner() {
       if (!game) return;
       const doRedeal = () => {
         const assignment = makeAssignment(game.roster, game.mode);
-        dispatch({ type: 'REDEAL', assignment });
+        dispatch({ type: 'REDEAL', assignment, rng: mathRandom });
       };
       if (withTransition) {
         setRedealTransition(true);

@@ -992,21 +992,39 @@ input {
   color: var(--ink-2);
 }
 
+.reveal-stage__lead {
+  font-size: 15px;
+  color: var(--ink-2);
+}
+
 .reveal-stage__name {
   font-size: 36px;
   font-weight: 800;
   letter-spacing: 4px;
 }
 
+/* v0.3.0：揭晓保密提示（只亮身份不亮词，词语在终局公开） */
+.reveal-stage__hint {
+  font-size: 14px;
+  color: var(--ink-2);
+  margin-top: 2px;
+}
+
+.reveal-stage__note {
+  font-size: 14px;
+  color: var(--ink-2);
+}
+
 .identity-card {
+  position: relative;
   width: min(84vw, 320px);
   border-radius: 24px;
-  padding: 34px 20px;
+  padding: 30px 20px 34px;
   color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   animation: flip-in 0.5s ease;
 }
 
@@ -1018,19 +1036,58 @@ input {
   background: linear-gradient(160deg, #a48bf0, var(--mystery-deep));
 }
 
-.identity-card__role {
-  font-size: 30px;
+.identity-card__sparkle {
+  position: absolute;
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.identity-card__sparkle--tl {
+  top: 14px;
+  left: 22px;
+}
+
+.identity-card__sparkle--tr {
+  top: 14px;
+  right: 22px;
+}
+
+.identity-card__sparkle--bl {
+  bottom: 16px;
+  left: 24px;
+  font-size: 10px;
+}
+
+.identity-card__sparkle--br {
+  bottom: 16px;
+  right: 24px;
+  font-size: 10px;
+}
+
+.identity-card__avatar-ring {
+  border-radius: 50%;
+  background: #fff;
+  padding: 8px;
+  margin-bottom: 4px;
+}
+
+.identity-card__name {
+  font-size: 22px;
   font-weight: 800;
+  letter-spacing: 3px;
 }
 
-.identity-card__word {
-  font-size: 18px;
-  opacity: 0.95;
+.identity-card__divider {
+  width: 90px;
+  height: 1.5px;
+  background: #fff;
+  opacity: 0.35;
+  margin: 2px 0 6px;
 }
 
-.identity-card__word strong {
-  font-size: 26px;
-  letter-spacing: 2px;
+.identity-card__role {
+  font-size: 36px;
+  font-weight: 800;
 }
 
 /* ---------- 平票页 ---------- */

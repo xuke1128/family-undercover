@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" font-family="'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif">
+  <title>P1 首页</title>
+  <defs>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.6" fill="#F3E9DC"/></pattern>
+    <filter id="sh" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#46332E" flood-opacity="0.08"/></filter>
+    <filter id="btn" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#F0633F" flood-opacity="0.30"/></filter>
+  </defs>
+  <rect width="390" height="844" rx="40" fill="#FFF8EF"/>
+  <rect width="390" height="844" rx="40" fill="url(#dots)"/>
+  <circle cx="50" cy="200" r="72" fill="#F0633F" opacity="0.05"/>
+  <circle cx="348" cy="470" r="84" fill="#3EC9A7" opacity="0.06"/>
+  <circle cx="332" cy="150" r="44" fill="#FFC94D" opacity="0.10"/>
+  <circle cx="60" cy="500" r="40" fill="#8C6FE6" opacity="0.06"/>
+  <g>
+    <text x="46" y="46" font-size="15" font-weight="600" fill="#46372E">9:41</text>
+    <g fill="#9C8B7E">
+      <rect x="286" y="40" width="3" height="6" rx="1.5"/>
+      <rect x="292" y="37" width="3" height="9" rx="1.5"/>
+      <rect x="298" y="34" width="3" height="12" rx="1.5"/>
+      <rect x="304" y="31" width="3" height="15" rx="1.5"/>
+      <rect x="318" y="34" width="22" height="11" rx="3.5" fill="none" stroke="#9C8B7E" stroke-width="1.5"/>
+      <rect x="320.5" y="36.5" width="13" height="6" rx="2"/>
+      <rect x="341.5" y="37" width="2.5" height="5" rx="1.2"/>
+    </g>
+  </g>
+  <text x="76" y="152" font-size="34">🎈</text>
+  <text x="300" y="182" font-size="24">✨</text>
+  <text x="52" y="432" font-size="20">⭐</text>
+  <text x="318" y="308" font-size="20">⭐</text>
+  <text x="195" y="296" font-size="72" text-anchor="middle">🎉</text>
+  <text x="195" y="360" font-size="34" font-weight="800" fill="#46372E" text-anchor="middle">家庭卧底派对</text>
+  <text x="195" y="394" font-size="16" fill="#9C8B7E" text-anchor="middle">一台手机，全家开演 🎭</text>
+  <rect x="24" y="556" width="342" height="64" rx="32" fill="#F0633F" filter="url(#btn)"/>
+  <text x="195" y="596" font-size="21" font-weight="700" fill="#FFFFFF" text-anchor="middle">▶ 开始游戏</text>
+  <rect x="24" y="644" width="342" height="56" rx="28" fill="#FFFFFF" stroke="#F0633F" stroke-width="2"/>
+  <text x="195" y="680" font-size="18" font-weight="600" fill="#F0633F" text-anchor="middle">🏆 家庭排行榜</text>
+  <text x="195" y="742" font-size="15" fill="#9C8B7E" text-anchor="middle">❓ 怎么玩</text>
+  <rect x="88" y="768" width="214" height="34" rx="17" fill="#FFFFFF" stroke="#F3E9DC"/>
+  <text x="195" y="790" font-size="13" fill="#9C8B7E" text-anchor="middle">🍬 默认简单模式 · 适合全家</text>
+  <rect x="128" y="826" width="134" height="5" rx="2.5" fill="#46372E" opacity="0.85"/>
+</svg>

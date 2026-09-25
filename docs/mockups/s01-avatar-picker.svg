@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" font-family="'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif">
+  <title>S1 头像选择弹层（4 个原创置顶 + emoji 分组）</title>
+  <defs>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="-2" stdDeviation="10" flood-color="#46332E" flood-opacity="0.18"/></filter>
+    <filter id="card" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#46332E" flood-opacity="0.08"/></filter>
+  </defs>
+  <rect width="390" height="844" rx="40" fill="#FFF8EF"/>
+  <g opacity="0.5">
+    <text x="46" y="46" font-size="15" font-weight="600" fill="#46372E">9:41</text>
+    <text x="32" y="120" font-size="24" font-weight="700" fill="#46372E">‹</text>
+    <text x="64" y="117" font-size="18" font-weight="800" fill="#46372E">开局设置</text>
+    <rect x="24" y="140" width="342" height="100" rx="20" fill="#FFFFFF" stroke="#F3E9DC"/>
+    <text x="48" y="180" font-size="14" fill="#9C8B7E">玩家 4/6（已预填 4 位家人）</text>
+    <text x="48" y="216" font-size="14" fill="#9C8B7E">◖ 爸爸　◗ 妈妈　▦ 哥哥　✿ 妹妹</text>
+  </g>
+  <rect x="0" y="0" width="390" height="310" rx="40" fill="#46332E" opacity="0.38"/>
+  <path d="M0,334 Q0,310 24,310 H366 Q390,310 390,334 V844 H0 Z" fill="#FFFFFF" filter="url(#sh)"/>
+  <rect x="175" y="326" width="40" height="5" rx="2.5" fill="#E8DFD3"/>
+  <text x="24" y="370" font-size="18" font-weight="800" fill="#46372E">选一个头像</text>
+  <rect x="282" y="344" width="84" height="32" rx="16" fill="#FFFFFF" stroke="#F0633F" stroke-width="1.5"/>
+  <text x="324" y="365" font-size="14" font-weight="600" fill="#F0633F" text-anchor="middle">🎲 随机</text>
+  <text x="24" y="406" font-size="13" font-weight="800" fill="#46372E">✨ 原创头像</text>
+  <text x="366" y="405" font-size="12" fill="#9C8B7E" text-anchor="end">共 4 个</text>
+  <rect x="24" y="414" width="81" height="100" rx="14" fill="#FFFFFF" stroke="#FFC94D" stroke-width="1.5" filter="url(#card)"/>
+  <circle cx="64.5" cy="450" r="27" fill="#E8EFF7"/>
+  <g transform="translate(39.5,425) scale(1.25)">
+    <circle cx="20" cy="19" r="13.5" fill="#5A4632"/>
+    <circle cx="8.5" cy="24" r="2.2" fill="#F6CFA4"/>
+    <circle cx="31.5" cy="24" r="2.2" fill="#F6CFA4"/>
+    <circle cx="20" cy="23" r="11" fill="#F6CFA4"/>
+    <path d="M9.5,19 q10.5,-13 21,0 q-4,-6 -10.5,-6 q-6.5,0 -10.5,6 Z" fill="#5A4632"/>
+    <circle cx="15" cy="22" r="3.6" fill="none" stroke="#46372E" stroke-width="1.5"/>
+    <circle cx="25" cy="22" r="3.6" fill="none" stroke="#46372E" stroke-width="1.5"/>
+    <line x1="18.6" y1="22" x2="21.4" y2="22" stroke="#46372E" stroke-width="1.5"/>
+    <path d="M13.7,22 q1.3,1.5 2.6,0" fill="none" stroke="#46372E" stroke-width="1.2"/>
+    <path d="M23.7,22 q1.3,1.5 2.6,0" fill="none" stroke="#46372E" stroke-width="1.2"/>
+    <path d="M19,25.8 q1,1 2,0" fill="none" stroke="#D8A878" stroke-width="1.2"/>
+    <circle cx="12.5" cy="26.5" r="1.5" fill="#F5B48F"/>
+    <circle cx="27.5" cy="26.5" r="1.5" fill="#F5B48F"/>
+    <path d="M16.5,29 q3.5,2.4 7,0" fill="none" stroke="#A66A4A" stroke-width="1.4"/>
+    <rect x="9" y="33.5" width="22" height="6.5" rx="2.5" fill="#5B7A99"/>
+    <path d="M15,33.5 l5,4.2 5,-4.2 Z" fill="#4A6B8A"/>
+  </g>
+  <circle cx="93" cy="424" r="9" fill="#FFC94D"/>
+  <text x="93" y="428" font-size="10" font-weight="700" fill="#6B4A00" text-anchor="middle">✦</text>
+  <text x="64.5" y="505" font-size="11.5" font-weight="700" fill="#46372E" text-anchor="middle">暖爸</text>
+  <rect x="111" y="414" width="81" height="100" rx="14" fill="#FFFFFF" stroke="#FFC94D" stroke-width="1.5" filter="url(#card)"/>
+  <circle cx="151.5" cy="450" r="27" fill="#FFE9E0"/>
+  <g transform="translate(126.5,425) scale(1.25)">
+    <path d="M10,14.5 Q3.5,18 5,26 Q5.8,31 9.5,35.5 Q7.8,29.5 8.6,24 Q9.2,19 11,15.5 Z" fill="#A0603A"/>
+    <path d="M30,14.5 Q36.5,18 35,26 Q34.2,31 30.5,35.5 Q32.2,29.5 31.4,24 Q30.8,19 29,15.5 Z" fill="#A0603A"/>
+    <path d="M6.6,28.4 q0.6,2.6 2.6,4.2" fill="none" stroke="#C58A5C" stroke-width="1.1"/>
+    <path d="M33.4,28.4 q-0.6,2.6 -2.6,4.2" fill="none" stroke="#C58A5C" stroke-width="1.1"/>
+    <rect x="8.5" y="11" width="23" height="20" rx="9.5" fill="#A0603A"/>
+    <circle cx="20" cy="22.5" r="11" fill="#F9D8B4"/>
+    <path d="M9,19.5 q11,-12.5 22,0 q-3.5,-7 -11,-7 q-7.5,0 -11,7 Z" fill="#A0603A"/>
+    <path d="M9,17.5 Q7.6,23 9.6,28.2 Q10.8,24.8 10.5,20 Z" fill="#A0603A"/>
+    <path d="M31,17.5 Q32.4,23 30.4,28.2 Q29.2,24.8 29.5,20 Z" fill="#A0603A"/>
+    <circle cx="10.4" cy="14.8" r="1.5" fill="#F48FB1"/>
+    <circle cx="29.6" cy="14.8" r="1.5" fill="#F48FB1"/>
+    <circle cx="15.2" cy="22.6" r="2.5" fill="#46372E"/>
+    <circle cx="24.8" cy="22.6" r="2.5" fill="#46372E"/>
+    <circle cx="14.4" cy="21.8" r="0.9" fill="#FFFFFF"/>
+    <circle cx="24" cy="21.8" r="0.9" fill="#FFFFFF"/>
+    <circle cx="15.9" cy="23.5" r="0.4" fill="#FFFFFF"/>
+    <circle cx="25.5" cy="23.5" r="0.4" fill="#FFFFFF"/>
+    <circle cx="12.4" cy="26.2" r="1.8" fill="#F7B8A0"/>
+    <circle cx="27.6" cy="26.2" r="1.8" fill="#F7B8A0"/>
+    <path d="M16.8,28 q3.2,2.8 6.4,0" fill="none" stroke="#C96A5A" stroke-width="1.4"/>
+    <rect x="9" y="33.5" width="22" height="6.5" rx="3" fill="#F48FB1"/>
+    <path d="M17,34.4 l3,1.5 -3,1.5 Z" fill="#FFFFFF"/>
+    <path d="M23,34.4 l-3,1.5 3,1.5 Z" fill="#FFFFFF"/>
+    <circle cx="20" cy="35.9" r="0.8" fill="#F0639F"/>
+  </g>
+  <circle cx="180" cy="424" r="9" fill="#FFC94D"/>
+  <text x="180" y="428" font-size="10" font-weight="700" fill="#6B4A00" text-anchor="middle">✦</text>
+  <text x="151.5" y="505" font-size="11.5" font-weight="700" fill="#46372E" text-anchor="middle">甜妈</text>
+  <rect x="198" y="414" width="81" height="100" rx="14" fill="#FFFFFF" stroke="#FFC94D" stroke-width="1.5" filter="url(#card)"/>
+  <circle cx="238.5" cy="450" r="27" fill="#FFE3EF"/>
+  <g transform="translate(213.5,425) scale(1.25)">
+    <rect x="9" y="0" width="8" height="19" rx="4" fill="#FF9EBB"/>
+    <rect x="11" y="2.5" width="4" height="13" rx="2" fill="#FFD3E2"/>
+    <rect x="23" y="0" width="8" height="19" rx="4" fill="#FF9EBB"/>
+    <rect x="25" y="2.5" width="4" height="13" rx="2" fill="#FFD3E2"/>
+    <circle cx="20" cy="27" r="13" fill="#FFB6CD"/>
+    <path d="M9,23 Q20,17 31,23 Q20,20.5 9,23" fill="#FF8FB3"/>
+    <ellipse cx="20" cy="30" rx="9.5" ry="8.5" fill="#FFFFFF"/>
+    <circle cx="16" cy="28" r="1.8" fill="#46372E"/>
+    <circle cx="24" cy="28" r="1.8" fill="#46372E"/>
+    <ellipse cx="20" cy="31.5" rx="2" ry="1.4" fill="#F0633F"/>
+    <circle cx="13.5" cy="31.5" r="1.4" fill="#FFC9D8"/>
+    <circle cx="26.5" cy="31.5" r="1.4" fill="#FFC9D8"/>
+    <circle cx="28.5" cy="19.5" r="2.4" fill="#FFC94D"/>
+    <circle cx="28.5" cy="19.5" r="0.9" fill="#F0633F"/>
+  </g>
+  <circle cx="267" cy="424" r="9" fill="#FFC94D"/>
+  <text x="267" y="428" font-size="10" font-weight="700" fill="#6B4A00" text-anchor="middle">✦</text>
+  <text x="238.5" y="505" font-size="11.5" font-weight="700" fill="#46372E" text-anchor="middle">粉兜兔</text>
+  <rect x="285" y="414" width="81" height="100" rx="14" fill="#FFFFFF" stroke="#FFC94D" stroke-width="1.5" filter="url(#card)"/>
+  <circle cx="325.5" cy="450" r="27" fill="#E3F0FD"/>
+  <g transform="translate(300.5,425) scale(1.25)">
+    <rect x="8" y="4" width="24" height="8" fill="#6B4A2F"/>
+    <rect x="8" y="12" width="4" height="4" fill="#6B4A2F"/>
+    <rect x="28" y="12" width="4" height="4" fill="#6B4A2F"/>
+    <rect x="12" y="12" width="16" height="12" fill="#F2C79F"/>
+    <rect x="14" y="15" width="4" height="4" fill="#FFFFFF"/>
+    <rect x="15" y="16" width="2" height="2" fill="#4A6FA5"/>
+    <rect x="22" y="15" width="4" height="4" fill="#FFFFFF"/>
+    <rect x="23" y="16" width="2" height="2" fill="#4A6FA5"/>
+    <rect x="19" y="18" width="2" height="3" fill="#E0A87E"/>
+    <rect x="17" y="22" width="6" height="2" fill="#A66A4A"/>
+    <rect x="10" y="24" width="20" height="13" fill="#4FA3E3"/>
+    <rect x="16" y="24" width="8" height="3" fill="#3E86C9"/>
+    <rect x="14" y="29" width="4" height="4" fill="#3E86C9"/>
+    <rect x="24" y="31" width="4" height="4" fill="#3E86C9"/>
+    <rect x="6" y="26" width="4" height="9" fill="#4FA3E3"/>
+    <rect x="30" y="26" width="4" height="9" fill="#4FA3E3"/>
+    <rect x="6" y="35" width="4" height="3" fill="#F2C79F"/>
+    <rect x="30" y="35" width="4" height="3" fill="#F2C79F"/>
+  </g>
+  <circle cx="354" cy="424" r="9" fill="#FFC94D"/>
+  <text x="354" y="428" font-size="10" font-weight="700" fill="#6B4A00" text-anchor="middle">✦</text>
+  <text x="325.5" y="505" font-size="11.5" font-weight="700" fill="#46372E" text-anchor="middle">像素小子</text>
+  <line x1="24" y1="540" x2="366" y2="540" stroke="#F3E9DC" stroke-width="2"/>
+  <text x="24" y="566" font-size="13" fill="#9C8B7E">emoji 头像（共 50 个）</text>
+  <rect x="24" y="578" width="60" height="32" rx="16" fill="#F0633F"/>
+  <text x="54" y="599" font-size="14" font-weight="600" fill="#FFFFFF" text-anchor="middle">动物</text>
+  <rect x="92" y="578" width="60" height="32" rx="16" fill="#FFF8EF" stroke="#F3E9DC"/>
+  <text x="122" y="599" font-size="14" fill="#9C8B7E" text-anchor="middle">食物</text>
+  <rect x="160" y="578" width="60" height="32" rx="16" fill="#FFF8EF" stroke="#F3E9DC"/>
+  <text x="190" y="599" font-size="14" fill="#9C8B7E" text-anchor="middle">表情</text>
+  <rect x="228" y="578" width="60" height="32" rx="16" fill="#FFF8EF" stroke="#F3E9DC"/>
+  <text x="258" y="599" font-size="14" fill="#9C8B7E" text-anchor="middle">物品</text>
+  <rect x="296" y="578" width="60" height="32" rx="16" fill="#FFF8EF" stroke="#F3E9DC"/>
+  <text x="326" y="599" font-size="14" fill="#9C8B7E" text-anchor="middle">幻想</text>
+  <circle cx="63" cy="638" r="26" fill="#E9F9F3"/><text x="63" y="647" font-size="24" text-anchor="middle">🐵</text>
+  <circle cx="151" cy="638" r="26" fill="#FFEDE6"/><text x="151" y="647" font-size="24" text-anchor="middle">🐼</text>
+  <circle cx="239" cy="638" r="26" fill="#FFF6DF"/><text x="239" y="647" font-size="24" text-anchor="middle">🦊</text>
+  <circle cx="327" cy="638" r="26" fill="#F0EAFE"/><text x="327" y="647" font-size="24" text-anchor="middle">🐸</text>
+  <circle cx="63" cy="706" r="26" fill="#F1ECE4"/>
+  <text x="63" y="715" font-size="24" text-anchor="middle" opacity="0.35">🐷</text>
+  <circle cx="90" cy="679" r="11" fill="#FFC94D"/>
+  <text x="90" y="684" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">✓</text>
+  <circle cx="151" cy="706" r="26" fill="#FFEDE6"/><text x="151" y="715" font-size="24" text-anchor="middle">🐯</text>
+  <circle cx="239" cy="706" r="26" fill="#E9F9F3"/><text x="239" y="715" font-size="24" text-anchor="middle">🐨</text>
+  <circle cx="327" cy="706" r="26" fill="#FFF6DF"/><text x="327" y="715" font-size="24" text-anchor="middle">🦁</text>
+  <circle cx="63" cy="774" r="26" fill="#FFEDE6"/><text x="63" y="783" font-size="24" text-anchor="middle">🐰</text>
+  <circle cx="151" cy="774" r="26" fill="#E9F9F3"/><text x="151" y="783" font-size="24" text-anchor="middle">🐻</text>
+  <circle cx="239" cy="774" r="26" fill="#F0EAFE"/><text x="239" y="783" font-size="24" text-anchor="middle">🐮</text>
+  <circle cx="327" cy="774" r="26" fill="#FFF6DF"/><text x="327" y="783" font-size="24" text-anchor="middle">🐶</text>
+  <rect x="128" y="826" width="134" height="5" rx="2.5" fill="#46372E" opacity="0.85"/>
+</svg>

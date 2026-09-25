@@ -29,6 +29,16 @@ export const COPY = {
     simple: '这轮没人出局，再来！',
     normal: '本轮无人出局，进入下一轮',
   } satisfies ModeCopy,
+  /** 出局揭晓页保密提示（v0.3.0：只亮身份不亮词，设计附录 §2.1 固定文案） */
+  revealSecretHint: {
+    simple: '词语会在终局揭晓，别急 👀',
+    normal: '词语会在终局揭晓，别急 👀',
+  } satisfies ModeCopy,
+  /** 揭晓页收尾小字（p08b） */
+  revealWatchNote: {
+    simple: '全家一起围观揭晓 🎉',
+    normal: '全家一起围观揭晓 🎉',
+  } satisfies ModeCopy,
   finalSub: {
     civilian: { simple: '找到所有卧底啦！', normal: '卧底被全部找出' },
     undercover: { simple: '卧底藏得真好！', normal: '卧底坚持到最后' },

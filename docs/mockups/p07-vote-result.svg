@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" font-family="'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif">
+  <title>P7 票型公示</title>
+  <defs>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.6" fill="#F3E9DC"/></pattern>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#46332E" flood-opacity="0.08"/></filter>
+    <filter id="btn" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#F0633F" flood-opacity="0.30"/></filter>
+  </defs>
+  <rect width="390" height="844" rx="40" fill="#FFF8EF"/>
+  <rect width="390" height="844" rx="40" fill="url(#dots)"/>
+  <g>
+    <text x="46" y="46" font-size="15" font-weight="600" fill="#46372E">9:41</text>
+    <g fill="#9C8B7E">
+      <rect x="286" y="40" width="3" height="6" rx="1.5"/>
+      <rect x="292" y="37" width="3" height="9" rx="1.5"/>
+      <rect x="298" y="34" width="3" height="12" rx="1.5"/>
+      <rect x="304" y="31" width="3" height="15" rx="1.5"/>
+      <rect x="318" y="34" width="22" height="11" rx="3.5" fill="none" stroke="#9C8B7E" stroke-width="1.5"/>
+      <rect x="320.5" y="36.5" width="13" height="6" rx="2"/>
+      <rect x="341.5" y="37" width="2.5" height="5" rx="1.2"/>
+    </g>
+  </g>
+  <text x="195" y="92" font-size="20" font-weight="800" fill="#46372E" text-anchor="middle">投票结果 🗳</text>
+  <rect x="24" y="112" width="342" height="152" rx="20" fill="#FFFFFF" stroke="#F3E9DC" filter="url(#sh)"/>
+  <circle cx="52" cy="148" r="16" fill="#FFEDE6"/><text x="52" y="154" font-size="15" text-anchor="middle">🐼</text>
+  <text x="80" y="153" font-size="15" font-weight="600" fill="#46372E">爸爸</text>
+  <rect x="140" y="141" width="150" height="14" rx="7" fill="#F3E9DC"/>
+  <rect x="140" y="141" width="150" height="14" rx="7" fill="#F0633F"/>
+  <text x="344" y="153" font-size="15" font-weight="800" fill="#46372E" text-anchor="end">3 票</text>
+  <circle cx="52" cy="196" r="16" fill="#FFF6DF"/><text x="52" y="202" font-size="15" text-anchor="middle">🦊</text>
+  <text x="80" y="201" font-size="15" font-weight="600" fill="#46372E">妹妹</text>
+  <rect x="140" y="189" width="150" height="14" rx="7" fill="#F3E9DC"/>
+  <rect x="140" y="189" width="100" height="14" rx="7" fill="#F0633F" opacity="0.75"/>
+  <text x="344" y="201" font-size="15" font-weight="800" fill="#46372E" text-anchor="end">2 票</text>
+  <circle cx="52" cy="244" r="16" fill="#E9F9F3"/><text x="52" y="250" font-size="15" text-anchor="middle">🐻</text>
+  <text x="80" y="249" font-size="15" font-weight="600" fill="#46372E">奶奶</text>
+  <rect x="140" y="237" width="150" height="14" rx="7" fill="#F3E9DC"/>
+  <rect x="140" y="237" width="8" height="14" rx="7" fill="#C9BCAE"/>
+  <text x="344" y="249" font-size="15" font-weight="800" fill="#9C8B7E" text-anchor="end">0 票</text>
+  <text x="24" y="306" font-size="14" font-weight="800" fill="#46372E">大家是这样投的：</text>
+  <rect x="24" y="322" width="342" height="240" rx="20" fill="#FFFFFF" stroke="#F3E9DC" filter="url(#sh)"/>
+  <circle cx="52" cy="356" r="14" fill="#FFEDE6"/><text x="52" y="362" font-size="13" text-anchor="middle">🐰</text>
+  <text x="76" y="361" font-size="14" fill="#46372E">妈妈</text>
+  <text x="172" y="361" font-size="15" fill="#F0633F" text-anchor="middle">➜</text>
+  <circle cx="212" cy="356" r="14" fill="#FFEDE6"/><text x="212" y="362" font-size="13" text-anchor="middle">🐼</text>
+  <text x="236" y="361" font-size="14" font-weight="600" fill="#46372E">爸爸</text>
+  <line x1="44" y1="380" x2="346" y2="380" stroke="#F3E9DC"/>
+  <circle cx="52" cy="404" r="14" fill="#FFF6DF"/><text x="52" y="410" font-size="13" text-anchor="middle">🦊</text>
+  <text x="76" y="409" font-size="14" fill="#46372E">妹妹</text>
+  <text x="172" y="409" font-size="15" fill="#F0633F" text-anchor="middle">➜</text>
+  <circle cx="212" cy="404" r="14" fill="#FFEDE6"/><text x="212" y="410" font-size="13" text-anchor="middle">🐼</text>
+  <text x="236" y="409" font-size="14" font-weight="600" fill="#46372E">爸爸</text>
+  <line x1="44" y1="428" x2="346" y2="428" stroke="#F3E9DC"/>
+  <circle cx="52" cy="452" r="14" fill="#E9F9F3"/><text x="52" y="458" font-size="13" text-anchor="middle">🐻</text>
+  <text x="76" y="457" font-size="14" fill="#46372E">奶奶</text>
+  <text x="172" y="457" font-size="15" fill="#F0633F" text-anchor="middle">➜</text>
+  <circle cx="212" cy="452" r="14" fill="#FFEDE6"/><text x="212" y="458" font-size="13" text-anchor="middle">🐼</text>
+  <text x="236" y="457" font-size="14" font-weight="600" fill="#46372E">爸爸</text>
+  <line x1="44" y1="476" x2="346" y2="476" stroke="#F3E9DC"/>
+  <circle cx="52" cy="500" r="14" fill="#E9F9F3"/><text x="52" y="506" font-size="13" text-anchor="middle">🐵</text>
+  <text x="76" y="505" font-size="14" fill="#46372E">小美</text>
+  <text x="172" y="505" font-size="15" fill="#F0633F" text-anchor="middle">➜</text>
+  <circle cx="212" cy="500" r="14" fill="#FFF6DF"/><text x="212" y="506" font-size="13" text-anchor="middle">🦊</text>
+  <text x="236" y="505" font-size="14" font-weight="600" fill="#46372E">妹妹</text>
+  <line x1="44" y1="524" x2="346" y2="524" stroke="#F3E9DC"/>
+  <circle cx="52" cy="548" r="14" fill="#FFEDE6"/><text x="52" y="554" font-size="13" text-anchor="middle">🐼</text>
+  <text x="76" y="553" font-size="14" fill="#46372E">爸爸</text>
+  <text x="172" y="553" font-size="15" fill="#F0633F" text-anchor="middle">➜</text>
+  <circle cx="212" cy="548" r="14" fill="#FFF6DF"/><text x="212" y="554" font-size="13" text-anchor="middle">🦊</text>
+  <text x="236" y="553" font-size="14" font-weight="600" fill="#46372E">妹妹</text>
+  <rect x="24" y="740" width="342" height="56" rx="28" fill="#F0633F" filter="url(#btn)"/>
+  <text x="195" y="775" font-size="18" font-weight="700" fill="#FFFFFF" text-anchor="middle">揭晓出局者 ▶</text>
+  <rect x="128" y="826" width="134" height="5" rx="2.5" fill="#46372E" opacity="0.85"/>
+</svg>

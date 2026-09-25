@@ -16,6 +16,7 @@ interface PeekViewProps {
  * P4 传机看词（防偷看核心页，US3/US4）：
  * 态 A 交接确认 → 态 B 翻牌显词 → 「记住啦，隐藏」→ 下一位；全部看完进完成态，
  * 点「开始投票」直接进入 P6（无描述环节）。
+ * v0.3.0（PRD §9-15）：交接与进度条按本局随机看词序 peekOrder 展示，与名单顺序无关。
  * 词语文本只在态 B 渲染（本文件 wordOf 的唯一调用点），其余视图不引用。
  */
 export function PeekView({ state, onConfirm, onHide, onStartVote }: PeekViewProps) {
@@ -37,15 +38,16 @@ export function PeekView({ state, onConfirm, onHide, onStartVote }: PeekViewProp
     );
   }
 
-  const player = playerById(state, state.roster[state.phase.index].id);
+  const peekPlayers = state.peekOrder.map((id) => playerById(state, id));
+  const player = peekPlayers[state.phase.index];
 
   if (!state.phase.revealed) {
     return (
       <>
         <ProgressAvatars
-          items={state.roster}
+          items={peekPlayers}
           currentIndex={state.phase.index}
-          label={`看词 ${state.phase.index + 1}/${state.roster.length}`}
+          label={`看词 ${state.phase.index + 1}/${peekPlayers.length}`}
         />
         <HandoffCard
           player={player}

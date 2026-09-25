@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" font-family="'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif">
+  <title>P6 传机投票：秘密投票</title>
+  <defs>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.6" fill="#F3E9DC"/></pattern>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#46332E" flood-opacity="0.08"/></filter>
+    <filter id="btn" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#F0633F" flood-opacity="0.30"/></filter>
+  </defs>
+  <rect width="390" height="844" rx="40" fill="#FFF8EF"/>
+  <rect width="390" height="844" rx="40" fill="url(#dots)"/>
+  <g>
+    <text x="46" y="46" font-size="15" font-weight="600" fill="#46372E">9:41</text>
+    <g fill="#9C8B7E">
+      <rect x="286" y="40" width="3" height="6" rx="1.5"/>
+      <rect x="292" y="37" width="3" height="9" rx="1.5"/>
+      <rect x="298" y="34" width="3" height="12" rx="1.5"/>
+      <rect x="304" y="31" width="3" height="15" rx="1.5"/>
+      <rect x="318" y="34" width="22" height="11" rx="3.5" fill="none" stroke="#9C8B7E" stroke-width="1.5"/>
+      <rect x="320.5" y="36.5" width="13" height="6" rx="2"/>
+      <rect x="341.5" y="37" width="2.5" height="5" rx="1.2"/>
+    </g>
+  </g>
+  <text x="24" y="70" font-size="18" font-weight="800" fill="#46372E">🤫 秘密投票 2/5</text>
+  <text x="195" y="118" font-size="20" font-weight="800" fill="#46372E" text-anchor="middle">🐰 妈妈，你觉得谁是卧底？</text>
+  <text x="195" y="144" font-size="13" fill="#9C8B7E" text-anchor="middle">悄悄选一个人，别出声</text>
+  <rect x="24" y="170" width="166" height="148" rx="20" fill="#FFFFFF" stroke="#F0633F" stroke-width="3" filter="url(#sh)"/>
+  <circle cx="171" cy="192" r="13" fill="#F0633F"/>
+  <text x="171" y="197" font-size="13" font-weight="700" fill="#FFFFFF" text-anchor="middle">✓</text>
+  <text x="107" y="256" font-size="42" text-anchor="middle">🐼</text>
+  <text x="107" y="300" font-size="17" font-weight="700" fill="#46372E" text-anchor="middle">爸爸</text>
+  <rect x="200" y="170" width="166" height="148" rx="20" fill="#FFFFFF" stroke="#F3E9DC" stroke-width="2" filter="url(#sh)"/>
+  <text x="283" y="256" font-size="42" text-anchor="middle">🦊</text>
+  <text x="283" y="300" font-size="17" font-weight="600" fill="#46372E" text-anchor="middle">妹妹</text>
+  <rect x="24" y="334" width="166" height="148" rx="20" fill="#FFFFFF" stroke="#F3E9DC" stroke-width="2" filter="url(#sh)"/>
+  <text x="107" y="420" font-size="42" text-anchor="middle">🐵</text>
+  <text x="107" y="464" font-size="17" font-weight="600" fill="#46372E" text-anchor="middle">小美</text>
+  <rect x="200" y="334" width="166" height="148" rx="20" fill="#FFFFFF" stroke="#F3E9DC" stroke-width="2" filter="url(#sh)"/>
+  <text x="283" y="420" font-size="42" text-anchor="middle">🐻</text>
+  <text x="283" y="464" font-size="17" font-weight="600" fill="#46372E" text-anchor="middle">奶奶</text>
+  <text x="195" y="528" font-size="13" fill="#9C8B7E" text-anchor="middle">已出局：🙈 🐮 爷爷（不可选）</text>
+  <text x="195" y="566" font-size="13" fill="#C9BCAE" text-anchor="middle">确认前可以改选，确认后就传给下一位</text>
+  <rect x="24" y="740" width="342" height="56" rx="28" fill="#F0633F" filter="url(#btn)"/>
+  <text x="195" y="775" font-size="19" font-weight="700" fill="#FFFFFF" text-anchor="middle">投给 爸爸</text>
+  <rect x="128" y="826" width="134" height="5" rx="2.5" fill="#46372E" opacity="0.85"/>
+</svg>

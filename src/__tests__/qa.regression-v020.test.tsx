@@ -11,6 +11,7 @@ import {
 import type { Action } from '../game/machine';
 import type { Assignment, GameMode, GameState, Player, Role } from '../game/types';
 import { pairsByDifficulty } from '../game/wordBank';
+import type { RNG } from '../game/rng';
 import App from '../App';
 
 /**
@@ -21,12 +22,25 @@ import App from '../App';
  *    恰好在第 3 次连续无人出局时触发兜底（前 2 次不触发）；
  * 3. UI：普通模式与简单模式一致——看词完成页直接引导「开始投票」，
  *    无描述步按钮、无句式提示（简单模式已由 app.smoke / qa.anticheat 覆盖）。
+ * v0.3.0：看词/投票顺序随机（PRD §9-15），全部按状态中的顺序动态驱动。
  */
 
 // ---------- machine 层工具（与 machine.test.ts 同款，本地复制） ----------
 
 const players = (names: string[]): Player[] =>
   names.map((name, i) => ({ id: `p${i + 1}`, name, avatarId: `emoji:e${i}` }));
+
+/** 确定性 PRNG（mulberry32），与 machine.test.ts 同实现 */
+const seededRng = (seed: number): RNG => {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+};
 
 const assignment = (roster: Player[], undercoverNames: string[], difficulty: 'easy' | 'normal'): Assignment => {
   const roles: Record<string, Role> = {};
@@ -36,7 +50,7 @@ const assignment = (roster: Player[], undercoverNames: string[], difficulty: 'ea
 
 const start = (names: string[], undercoverNames: string[], mode: GameMode): GameState => {
   const roster = players(names);
-  return createInitialGame(roster, mode, assignment(roster, undercoverNames, mode === 'simple' ? 'easy' : 'normal'));
+  return createInitialGame(roster, mode, assignment(roster, undercoverNames, mode === 'simple' ? 'easy' : 'normal'), seededRng(1));
 };
 
 const run = (state: GameState, ...actions: Action[]): GameState => {
@@ -53,12 +67,13 @@ const beginGame = (names: string[], undercoverNames: string[], mode: GameMode = 
   for (let i = 0; i < s.roster.length; i++) {
     s = run(s, { type: 'PEEK_CONFIRM' }, { type: 'PEEK_HIDE' });
   }
-  return run(s, { type: 'START_VOTE' });
+  return run(s, { type: 'START_VOTE', rng: seededRng(2) });
 };
 
+/** 按本轮 voteOrder 全员投票（v0.3.0：顺序随机，与名单顺序无关） */
 const voteAll = (state: GameState, targetOf: (voterName: string) => string): GameState => {
   let s = state;
-  for (const id of [...aliveIds(s)]) {
+  for (const id of s.voteOrder) {
     const voter = playerById(s, id);
     const target = s.roster.find((p) => p.name === targetOf(voter.name))!;
     s = run(s, { type: 'VOTER_CONFIRM' }, { type: 'VOTE_CAST', targetId: target.id });
@@ -73,14 +88,14 @@ const roundEliminate = (state: GameState, target: string): GameState => {
     voteAll(state, (voter) => (voter === target ? fallback : target)),
     { type: 'PROCEED_FROM_RESULT' },
     { type: 'FLIP_IDENTITY' },
-    { type: 'CONTINUE_AFTER_REVEAL' },
+    { type: 'CONTINUE_AFTER_REVEAL', rng: seededRng(3) },
   );
 };
 
 /** 一轮「首投平票 → 全员直接重投仍平票 → 无人出局 → 下一轮」 */
 const stuckRound = (state: GameState, tieMap: (voter: string) => string): GameState => {
   let s = run(voteAll(state, tieMap), { type: 'PROCEED_FROM_RESULT' }, { type: 'START_TIEBREAK' });
-  s = run(voteAll(s, tieMap), { type: 'PROCEED_FROM_RESULT' }, { type: 'TIE_STUCK_NEXT' });
+  s = run(voteAll(s, tieMap), { type: 'PROCEED_FROM_RESULT' }, { type: 'TIE_STUCK_NEXT', rng: seededRng(4) });
   expect(s.phase.kind).toBe('vote');
   return s;
 };
@@ -100,19 +115,20 @@ describe('QA v0.2.0：重投轮候选仍排除自己与已出局者（PRD §3.2/
     expect(s.phase.kind).toBe('tieAnnounce');
     expect(s.tiebreakIds).toEqual(['p1', 'p2', 'p3']); // 全员并列，全员存活（不含出局者 D）
 
-    // 全员直接重投（可换票）：重投轮投票人仍为全部存活者
+    // 全员直接重投（可换票）：重投轮投票人仍为全部存活者，顺序沿用本轮
     s = run(s, { type: 'START_TIEBREAK' });
     expect(s.phase).toEqual({ kind: 'vote', index: 0, confirmed: false, tiebreak: true });
+    const currentVoter = s.voteOrder[0]; // 当前投票人按本轮随机序（重投不重排）
     s = run(s, { type: 'VOTER_CONFIRM' });
     expect(() => run(s, { type: 'VOTE_CAST', targetId: 'p4' })).toThrow(); // 已出局者 D 不可投
-    expect(() => run(s, { type: 'VOTE_CAST', targetId: 'p1' })).toThrow(); // 不可投自己（当前投票人 A）
+    expect(() => run(s, { type: 'VOTE_CAST', targetId: currentVoter })).toThrow(); // 不可投自己（当前投票人）
 
     // 重投集中投卧底 C（C 本人投 A）→ 唯一最高出局 → 卧底全出局平民胜
-    // （s 已 confirmed，voteAll 内 VOTER_CONFIRM 幂等，从当前投票人 A 继续）
+    // （s 已 confirmed，voteAll 内 VOTER_CONFIRM 幂等，从当前投票人继续）
     s = run(voteAll(s, (voter) => (voter === 'A' || voter === 'B' ? 'C' : 'A')), { type: 'PROCEED_FROM_RESULT' });
     expect(s.phase.kind).toBe('reveal');
     expect(s.phase).toMatchObject({ eliminatedId: 'p3' });
-    s = run(s, { type: 'FLIP_IDENTITY' }, { type: 'CONTINUE_AFTER_REVEAL' });
+    s = run(s, { type: 'FLIP_IDENTITY' }, { type: 'CONTINUE_AFTER_REVEAL', rng: seededRng(5) });
     expect(s.phase.kind).toBe('final');
     expect(s.winner).toBe('civilian');
     expect(s.eliminatedIds).toEqual(['p4', 'p3']);
@@ -173,13 +189,19 @@ describe('QA v0.2.0：普通模式看词完成 → 直接投票（无描述环�
     expect(screen.getByRole('radio', { name: '🎭 普通' })).toHaveAttribute('aria-checked', 'true');
     await user.click(screen.getByRole('button', { name: '开始游戏' }));
 
-    // 逐人看词（普通模式词随机，仅断言流程与提示归属）
-    for (const name of ['爸爸', '妈妈', '哥哥', '妹妹']) {
+    // 逐人看词（普通模式词随机，仅断言流程与提示归属；顺序为本局随机看词序）
+    const rosterNames = ['爸爸', '妈妈', '哥哥', '妹妹'];
+    const peeked: string[] = [];
+    for (let i = 0; i < rosterNames.length; i++) {
       expect(await screen.findByText('下一个是')).toBeVisible();
+      const name = document.querySelector('.handoff__name')?.textContent ?? '';
+      expect(rosterNames).toContain(name);
+      peeked.push(name);
       await user.click(screen.getByRole('button', { name: '是我，看词 🙈' }));
       expect(await screen.findByText(`${name}，这是你的词`)).toBeVisible();
       await user.click(screen.getByRole('button', { name: '记住啦，隐藏 🙊' }));
     }
+    expect([...peeked].sort()).toEqual([...rosterNames].sort());
 
     // 看词完成页：普通模式文案，直接引导投票；无描述步按钮、无句式提示
     expect(await screen.findByText('词都记住啦！')).toBeVisible();

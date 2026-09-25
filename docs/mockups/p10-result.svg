@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 390 844" font-family="'PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif">
+  <title>P10 终局结算：平民胜利</title>
+  <defs>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse"><circle cx="4" cy="4" r="1.6" fill="#F3E9DC"/></pattern>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#46332E" flood-opacity="0.08"/></filter>
+    <filter id="btn" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="5" stdDeviation="8" flood-color="#F0633F" flood-opacity="0.30"/></filter>
+  </defs>
+  <rect width="390" height="844" rx="40" fill="#FFF8EF"/>
+  <rect width="390" height="844" rx="40" fill="url(#dots)"/>
+  <circle cx="195" cy="130" r="100" fill="#3EC9A7" opacity="0.07"/>
+  <g>
+    <text x="46" y="46" font-size="15" font-weight="600" fill="#46372E">9:41</text>
+    <g fill="#9C8B7E">
+      <rect x="286" y="40" width="3" height="6" rx="1.5"/>
+      <rect x="292" y="37" width="3" height="9" rx="1.5"/>
+      <rect x="298" y="34" width="3" height="12" rx="1.5"/>
+      <rect x="304" y="31" width="3" height="15" rx="1.5"/>
+      <rect x="318" y="34" width="22" height="11" rx="3.5" fill="none" stroke="#9C8B7E" stroke-width="1.5"/>
+      <rect x="320.5" y="36.5" width="13" height="6" rx="2"/>
+      <rect x="341.5" y="37" width="2.5" height="5" rx="1.2"/>
+    </g>
+  </g>
+  <rect x="70" y="66" width="8" height="13" rx="2" fill="#F0633F" transform="rotate(18 74 72)"/>
+  <circle cx="112" cy="60" r="4" fill="#FFC94D"/>
+  <rect x="150" y="72" width="8" height="13" rx="2" fill="#3EC9A7" transform="rotate(-14 154 78)"/>
+  <circle cx="198" cy="58" r="4" fill="#8C6FE6"/>
+  <rect x="238" y="68" width="8" height="13" rx="2" fill="#FFC94D" transform="rotate(24 242 74)"/>
+  <circle cx="284" cy="62" r="4" fill="#F0633F"/>
+  <rect x="320" y="74" width="8" height="13" rx="2" fill="#3EC9A7" transform="rotate(-20 324 80)"/>
+  <text x="195" y="140" font-size="30" font-weight="800" fill="#1F8A6E" text-anchor="middle">🎉 平民胜利！</text>
+  <text x="195" y="170" font-size="15" fill="#9C8B7E" text-anchor="middle">卧底全被找出来啦</text>
+  <rect x="42" y="190" width="148" height="36" rx="18" fill="#E9F9F3" stroke="#3EC9A7" stroke-width="1.5"/>
+  <text x="116" y="214" font-size="13" font-weight="600" fill="#1F8A6E" text-anchor="middle">平民词：饺子 🥟</text>
+  <rect x="200" y="190" width="148" height="36" rx="18" fill="#F0EAFE" stroke="#8C6FE6" stroke-width="1.5"/>
+  <text x="274" y="214" font-size="13" font-weight="600" fill="#6B4FC4" text-anchor="middle">卧底词：包子</text>
+  <rect x="24" y="246" width="342" height="326" rx="20" fill="#FFFFFF" stroke="#F3E9DC" filter="url(#sh)"/>
+  <circle cx="56" cy="278" r="20" fill="#E9F9F3"/><text x="56" y="286" font-size="20" text-anchor="middle">🐵</text>
+  <text x="92" y="276" font-size="16" font-weight="700" fill="#46372E">小美</text>
+  <text x="92" y="296" font-size="13" fill="#9C8B7E">词语：饺子</text>
+  <rect x="214" y="263" width="76" height="30" rx="15" fill="#E9F9F3"/>
+  <text x="252" y="283" font-size="13" font-weight="600" fill="#1F8A6E" text-anchor="middle">🌱 平民</text>
+  <rect x="298" y="263" width="62" height="30" rx="15" fill="#FFF3D6" stroke="#FFC94D" stroke-width="1.5"/>
+  <text x="329" y="283" font-size="12" font-weight="700" fill="#8A6A1F" text-anchor="middle">✪ +1胜</text>
+  <line x1="44" y1="312" x2="346" y2="312" stroke="#F3E9DC"/>
+  <circle cx="56" cy="340" r="20" fill="#FFEDE6"/><text x="56" y="348" font-size="20" text-anchor="middle">🐼</text>
+  <text x="92" y="338" font-size="16" font-weight="700" fill="#46372E">爸爸</text>
+  <text x="92" y="358" font-size="13" fill="#9C8B7E">词语：包子</text>
+  <rect x="214" y="325" width="76" height="30" rx="15" fill="#F0EAFE" stroke="#8C6FE6" stroke-width="1.5"/>
+  <text x="252" y="345" font-size="13" font-weight="600" fill="#6B4FC4" text-anchor="middle">🎭 卧底</text>
+  <line x1="44" y1="374" x2="346" y2="374" stroke="#F3E9DC"/>
+  <circle cx="56" cy="402" r="20" fill="#FFEDE6"/><text x="56" y="410" font-size="20" text-anchor="middle">🐰</text>
+  <text x="92" y="400" font-size="16" font-weight="700" fill="#46372E">妈妈</text>
+  <text x="92" y="420" font-size="13" fill="#9C8B7E">词语：饺子</text>
+  <rect x="214" y="387" width="76" height="30" rx="15" fill="#E9F9F3"/>
+  <text x="252" y="407" font-size="13" font-weight="600" fill="#1F8A6E" text-anchor="middle">🌱 平民</text>
+  <rect x="298" y="387" width="62" height="30" rx="15" fill="#FFF3D6" stroke="#FFC94D" stroke-width="1.5"/>
+  <text x="329" y="407" font-size="12" font-weight="700" fill="#8A6A1F" text-anchor="middle">✪ +1胜</text>
+  <line x1="44" y1="436" x2="346" y2="436" stroke="#F3E9DC"/>
+  <circle cx="56" cy="464" r="20" fill="#FFF6DF"/><text x="56" y="472" font-size="20" text-anchor="middle">🦊</text>
+  <text x="92" y="462" font-size="16" font-weight="700" fill="#46372E">妹妹</text>
+  <text x="92" y="482" font-size="13" fill="#9C8B7E">词语：饺子</text>
+  <rect x="214" y="449" width="76" height="30" rx="15" fill="#E9F9F3"/>
+  <text x="252" y="469" font-size="13" font-weight="600" fill="#1F8A6E" text-anchor="middle">🌱 平民</text>
+  <rect x="298" y="449" width="62" height="30" rx="15" fill="#FFF3D6" stroke="#FFC94D" stroke-width="1.5"/>
+  <text x="329" y="469" font-size="12" font-weight="700" fill="#8A6A1F" text-anchor="middle">✪ +1胜</text>
+  <line x1="44" y1="498" x2="346" y2="498" stroke="#F3E9DC"/>
+  <circle cx="56" cy="526" r="20" fill="#E9F9F3"/><text x="56" y="534" font-size="20" text-anchor="middle">🐻</text>
+  <text x="92" y="524" font-size="16" font-weight="700" fill="#46372E">奶奶</text>
+  <text x="92" y="544" font-size="13" fill="#9C8B7E">词语：饺子</text>
+  <rect x="214" y="511" width="76" height="30" rx="15" fill="#E9F9F3"/>
+  <text x="252" y="531" font-size="13" font-weight="600" fill="#1F8A6E" text-anchor="middle">🌱 平民</text>
+  <rect x="298" y="511" width="62" height="30" rx="15" fill="#FFF3D6" stroke="#FFC94D" stroke-width="1.5"/>
+  <text x="329" y="531" font-size="12" font-weight="700" fill="#8A6A1F" text-anchor="middle">✪ +1胜</text>
+  <rect x="24" y="598" width="342" height="56" rx="28" fill="#F0633F" filter="url(#btn)"/>
+  <text x="195" y="633" font-size="19" font-weight="700" fill="#FFFFFF" text-anchor="middle">🔁 再来一局</text>
+  <rect x="24" y="666" width="342" height="48" rx="24" fill="#FFFFFF" stroke="#F0633F" stroke-width="2"/>
+  <text x="195" y="697" font-size="16" font-weight="600" fill="#F0633F" text-anchor="middle">✏️ 修改名单</text>
+  <text x="195" y="756" font-size="14" fill="#9C8B7E" text-anchor="middle">🏆 排行榜　·　🏠 首页</text>
+  <rect x="128" y="826" width="134" height="5" rx="2.5" fill="#46372E" opacity="0.85"/>
+</svg>

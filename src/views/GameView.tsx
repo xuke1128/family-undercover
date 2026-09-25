@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { GameState } from '../game/types';
 import type { Action } from '../game/machine';
+import { mathRandom } from '../game/rng';
 import { ActionButton } from '../ui/Button';
 import { Modal } from '../ui/Modal';
 import { PeekView } from './PeekView';
@@ -34,7 +35,7 @@ export function GameView({ state, dispatch, onRestart, onNextGame, onEditRoster,
           state={state}
           onConfirm={() => dispatch({ type: 'PEEK_CONFIRM' })}
           onHide={() => dispatch({ type: 'PEEK_HIDE' })}
-          onStartVote={() => dispatch({ type: 'START_VOTE' })}
+          onStartVote={() => dispatch({ type: 'START_VOTE', rng: mathRandom })}
         />
       )}
 
@@ -54,7 +55,7 @@ export function GameView({ state, dispatch, onRestart, onNextGame, onEditRoster,
         <TieView
           state={state}
           onStartTiebreak={() => dispatch({ type: 'START_TIEBREAK' })}
-          onNextRound={() => dispatch({ type: 'TIE_STUCK_NEXT' })}
+          onNextRound={() => dispatch({ type: 'TIE_STUCK_NEXT', rng: mathRandom })}
         />
       )}
 
@@ -62,7 +63,7 @@ export function GameView({ state, dispatch, onRestart, onNextGame, onEditRoster,
         <RevealView
           state={state}
           onFlip={() => dispatch({ type: 'FLIP_IDENTITY' })}
-          onContinue={() => dispatch({ type: 'CONTINUE_AFTER_REVEAL' })}
+          onContinue={() => dispatch({ type: 'CONTINUE_AFTER_REVEAL', rng: mathRandom })}
         />
       )}
 
